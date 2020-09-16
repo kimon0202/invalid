@@ -190,8 +190,7 @@ module.exports = {
 
   // Whether to use watchman for file crawling
   // watchman: true,
-  preset: 'ts-jest',
-  projects: ['<rootDir>/packages/**/jest.config.js'],
+  preset: 'ts-jest'
 };
 
 // {
