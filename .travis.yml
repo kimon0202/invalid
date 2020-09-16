@@ -3,12 +3,3 @@ node_js:
   - stable
 cache:
   yarn: true
-
-env:
-  matrix:
-    - TEST_TYPE=test
-    - TEST_TYPE=lint
-
-script:
-  - commitlint-travis
-  - yarn run $TEST_TYPE
