@@ -4,7 +4,7 @@
   "main": "src/index.ts",
   "license": "MIT",
   "scripts": {
-    "gitc": "git-cz",
+    "commit": "git-cz",
     "lint": "eslint --ext .js,.ts packages/",
     "test": "cross-env NODE_ENV=test jest",
     "test:coverage": "cross-env NODE_ENV=test jest --coverage",
@@ -21,7 +21,8 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "eslint --fix"
+      "eslint --fix",
+      "git add"
     ],
     "package.json": [
       "sort-package-json"
