@@ -3,7 +3,6 @@ import { ValidationError } from '../../errors/ValidationError';
 import { defaultMessages } from '../../errors/defaultMessages';
 
 export const minFactory = (min: number, message?: string): IProperty => ({
-  name: 'min',
   test: (value: number) => {
     const isValid = value >= min;
     const error = isValid

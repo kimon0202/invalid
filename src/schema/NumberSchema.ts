@@ -103,11 +103,7 @@ class NumberSchema extends Schema<number> {
     return [errors.length === 0, errors];
   }
 
-  public async cast(value: any): Promise<number> {
-    return Number(value);
-  }
-
-  public castSync(value: any): number {
+  public cast(value: any): number {
     return Number(value);
   }
 }

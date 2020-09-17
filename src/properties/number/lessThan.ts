@@ -6,7 +6,6 @@ export const lessThanFactory = (
   lessThan: number,
   message?: string,
 ): IProperty => ({
-  name: 'lessThan',
   test: (value: number) => {
     const isValid = value < lessThan;
     const error = isValid

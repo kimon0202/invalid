@@ -6,24 +6,16 @@ class BooleanSchema extends Schema<boolean> {
     super('This must be a boolean');
   }
 
-  private _cast(value: any): boolean {
-    if (value === null) return false;
-
-    return !!value;
-  }
-
   public async validate(value: any): Promise<IValidationResult> {
     const isValid = typeof value === 'boolean';
 
     return [isValid, isValid ? [] : [new ValidationError(this._message)]];
   }
 
-  public async cast(value: any): Promise<boolean> {
-    return this._cast(value);
-  }
+  public cast(value: any): boolean {
+    if (value === null) return false;
 
-  public castSync(value: any): boolean {
-    return this._cast(value);
+    return !!value;
   }
 }
 

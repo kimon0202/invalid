@@ -81,13 +81,7 @@ class StringSchema extends Schema<string> {
     return this;
   }
 
-  public async cast(value: any): Promise<string> {
-    const casted =
-      typeof value === 'object' ? JSON.stringify(value) : String(value);
-    return casted;
-  }
-
-  public castSync(value: any): string {
+  public cast(value: any): string {
     const casted =
       typeof value === 'object' ? JSON.stringify(value) : String(value);
     return casted;

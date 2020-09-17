@@ -3,7 +3,6 @@ import { ValidationError } from '../../errors/ValidationError';
 import { defaultMessages } from '../../errors/defaultMessages';
 
 export const requiredFactory = (message?: string): IProperty => ({
-  name: 'required',
   test: value => {
     const isValid = value !== null && value !== undefined;
     const error = isValid
