@@ -48,15 +48,15 @@ export default {
       exclude: 'node_modules/**',
     }),
     typescript({
-      tsconfigOverride: {
-        compilerOptions: {
-          declarationDir: path.resolve(PACKAGE_ROOT_PATH, './typings'),
-          declarationMap: true,
-        },
-        include: [path.resolve(PACKAGE_ROOT_PATH, './src/**/*')],
-      },
+      // tsconfigOverride: {
+      //   compilerOptions: {
+      //     declarationDir: path.resolve(PACKAGE_ROOT_PATH, './typings'),
+      //     declarationMap: true,
+      //   },
+      //   include: [path.resolve(PACKAGE_ROOT_PATH, './src/**/*')],
+      // },
       rollupCommonJSResolveHack: true,
-      useTsconfigDeclarationDir: true,
+      // useTsconfigDeclarationDir: true,
     }),
     commonjs(),
     terser(),

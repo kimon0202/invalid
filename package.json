@@ -1,9 +1,9 @@
 {
   "name": "@bauke2112/invalidjs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
-  "types": "typings/index.d.ts",
+  "types": "dist/index.d.ts",
   "license": "MIT",
   "directories": {
     "src": "src",
