@@ -4,7 +4,6 @@ import { urlRegex } from '../../regexes';
 import { defaultMessages } from '../../errors/defaultMessages';
 
 export const urlFactory = (message?: string): IProperty => ({
-  name: 'url',
   test: (value: string) => {
     const isValid = urlRegex.test(value);
     const error = isValid

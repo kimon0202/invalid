@@ -7,6 +7,5 @@ export interface IValidationContext {
 }
 
 export interface IProperty {
-  name: string;
   test: (value: any, context?: IValidationContext) => ITestResult;
 }

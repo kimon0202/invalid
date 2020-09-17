@@ -3,7 +3,6 @@ import { ValidationError } from '../../errors/ValidationError';
 import { defaultMessages } from '../../errors/defaultMessages';
 
 export const maxFactory = (max: number, message?: string): IProperty => ({
-  name: 'max',
   test: (value: number) => {
     const isValid = value <= max;
     const error = isValid

@@ -3,29 +3,16 @@ import { number } from '../src/schema/NumberSchema';
 import { defaultMessages } from '../src/errors/defaultMessages';
 
 describe('Number Schema API', () => {
-  it('should cast the given values (async)', async () => {
+  it('should cast the given values', () => {
     const schema = number();
 
-    const string = await schema.cast('89.5');
+    const string = schema.cast('89.5');
     expect(string).toBe(89.5);
 
-    const num = await schema.cast(4);
+    const num = schema.cast(4);
     expect(num).toBe(4);
 
-    const nan = await schema.cast({ hello: 'world' });
-    expect(nan).toBeNaN();
-  });
-
-  it('should cast the given values (sync)', () => {
-    const schema = number();
-
-    const string = schema.castSync('89.5');
-    expect(string).toBe(89.5);
-
-    const num = schema.castSync(4);
-    expect(num).toBe(4);
-
-    const nan = schema.castSync({ hello: 'world' });
+    const nan = schema.cast({ hello: 'world' });
     expect(nan).toBeNaN();
   });
 

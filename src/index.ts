@@ -2,7 +2,7 @@ export { string } from './schema/StringSchema';
 export { number } from './schema/NumberSchema';
 export { object } from './schema/ObjectSchema';
 export { boolean } from './schema/BooleanSchema';
-export { ISchema } from './schema/Schema';
+export { Schema } from './schema/Schema';
 
 export { ValidationError } from './errors/ValidationError';
 

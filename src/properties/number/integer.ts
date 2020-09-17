@@ -3,7 +3,6 @@ import { ValidationError } from '../../errors/ValidationError';
 import { defaultMessages } from '../../errors/defaultMessages';
 
 export const integerFactory = (message?: string): IProperty => ({
-  name: 'greaterThan',
   test: (value: number) => {
     const isValid = Number.isInteger(value);
     const error = isValid

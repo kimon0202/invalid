@@ -11,7 +11,6 @@ export const minLengthFactory = (
   minValue: number,
   message?: string,
 ): IProperty => ({
-  name: 'minLength',
   test: (value: string) => {
     const isValid = value.length >= minValue;
     const error = isValid

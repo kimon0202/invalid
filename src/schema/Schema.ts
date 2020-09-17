@@ -10,13 +10,6 @@ import { requiredFactory } from '../properties/mixed/required';
 
 // TODO: add tests for ISchema creation
 
-export interface ISchema<SchemaType> {
-  type?: SchemaType;
-  shape: {
-    [propertyKey: string]: any;
-  };
-}
-
 export type IValidationResult = [boolean, ValidationError[]];
 
 // TODO: add self validation
@@ -44,19 +37,6 @@ export abstract class Schema<SchemaType> {
   }
 
   /**
-   * Gets a object representation of this schema
-   */
-  public get schema(): ISchema<SchemaType> {
-    const result = { shape: {} } as ISchema<SchemaType>;
-
-    this._properties.forEach(property => {
-      result.shape[property.name] = true;
-    });
-
-    return result;
-  }
-
-  /**
    * Marks the schema as required (null and undefined values fail)
    * @param message Message to throw when required validation fails
    */
@@ -73,16 +53,10 @@ export abstract class Schema<SchemaType> {
   public abstract async validate(value: any): Promise<IValidationResult>;
 
   /**
-   * Casts asynchronously a value to this schema SchemaType
-   * @param value Value to be casted
-   */
-  public abstract async cast(value: any): Promise<SchemaType>;
-
-  /**
    * Casts synchronously a value to this schema SchemaType
    * @param value Value to be casted
    */
-  public abstract castSync(value: any): SchemaType;
+  public abstract cast(value: any): SchemaType;
 
   //   public abstract validateSync(
   //     value: any,

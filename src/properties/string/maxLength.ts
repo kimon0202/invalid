@@ -11,7 +11,6 @@ export const maxLengthFactory = (
   maxValue: number,
   message?: string,
 ): IProperty => ({
-  name: 'maxLength',
   test: (value: string) => {
     const isValid = value.length <= maxValue;
     const error = isValid

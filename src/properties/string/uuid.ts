@@ -4,7 +4,6 @@ import { uuidRegex } from '../../regexes';
 import { defaultMessages } from '../../errors/defaultMessages';
 
 export const uuidFactory = (message?: string): IProperty => ({
-  name: 'uuid',
   test: (value: string) => {
     const isValid = uuidRegex.test(value);
     const error = isValid
