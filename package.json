@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "commit": "git-cz",
-    "lint": "eslint --ext .js,.ts packages/",
+    "lint": "eslint --ext .js,.ts src/",
     "test": "cross-env NODE_ENV=test jest",
     "test:coverage": "cross-env NODE_ENV=test jest --coverage",
     "prebuild": "rimraf dist typings",
