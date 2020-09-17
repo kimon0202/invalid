@@ -6,29 +6,16 @@ import { ValidationError } from '../src/errors/ValidationError';
 // TODO: Add not required tests
 
 describe('String Schema API', () => {
-  it('should cast the given values (async)', async () => {
+  it('should cast the given values', () => {
     const schema = string();
 
-    const stringValue = await schema.cast('hello');
+    const stringValue = schema.cast('hello');
     expect(stringValue).toBe('hello');
 
-    const number = await schema.cast(5);
+    const number = schema.cast(5);
     expect(number).toBe('5');
 
-    const obj = await schema.cast({ hello: 'world' });
-    expect(obj).toBe('{"hello":"world"}');
-  });
-
-  it('should cast the given values (sync)', () => {
-    const schema = string();
-
-    const stringValue = schema.castSync('hello');
-    expect(stringValue).toBe('hello');
-
-    const number = schema.castSync(5);
-    expect(number).toBe('5');
-
-    const obj = schema.castSync({ hello: 'world' });
+    const obj = schema.cast({ hello: 'world' });
     expect(obj).toBe('{"hello":"world"}');
   });
 
