@@ -18,6 +18,12 @@
     "url": "git+https://github.com/kimon0202/invalid.git"
   },
   "author": "Gustavo Teodoro Bauke",
+  "keywords": [
+    "validation",
+    "valiate",
+    "check",
+    "schema"
+  ],
   "scripts": {
     "commit": "git-cz",
     "lint": "eslint --ext .js,.ts src/",
