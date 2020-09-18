@@ -6,9 +6,8 @@ It is inspired by other validation libraries like [Yup](https://github.com/jquen
 
 With Invalid-JS, it is also possible to create custom schemas and custom validation logic really easily.
 
-[Installation Guide](#installation)
-[Usage](#usage)
-[API](#api)
+* [Installation Guide](#installation)
+* [Usage](#usage)
 
 ## Installation
 To install Invalid-JS you can use one of the following commands, depending on the package manager you are using:
