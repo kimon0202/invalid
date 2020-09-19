@@ -8,6 +8,7 @@ With Invalid-JS, it is also possible to create custom schemas and custom validat
 
 * [Installation Guide](#installation)
 * [Usage](#usage)
+* [API](#api)
 
 ## Installation
 To install Invalid-JS you can use one of the following commands, depending on the package manager you are using:
@@ -41,3 +42,16 @@ const [isValid, errors] = await schema.validate({
 	isBrazilian: true,
 });
 ```
+
+## API
+
+ - [`ValidationError`](https://github.com/kimon0202/invalid/blob/master/.github/docs/ValidationError.md)
+ - [`mixed`](https://github.com/kimon0202/invalid/blob/master/.github/docs/Mixed.md)
+ - [`string`](https://github.com/kimon0202/invalid/blob/master/.github/docs/String.md)
+ - [`number`](https://github.com/kimon0202/invalid/blob/master/.github/docs/Number.md)
+ - [`boolean`](https://github.com/kimon0202/invalid/blob/master/.github/docs/Boolean.md)
+ - [`object`](https://github.com/kimon0202/invalid/blob/master/.github/docs/Object.md)
+
+<!---
+  Add guides for creatingc custom schemas.
+->
