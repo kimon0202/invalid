@@ -10,7 +10,7 @@ interface Person {
   isBrazilian: boolean;
 }
 
-describe('String Schema API', () => {
+describe('Object Schema API', () => {
   // TODO: add cast tests
   it('should cast the given values', () => {
     const schema = object<Person>().shape({
@@ -98,6 +98,35 @@ describe('String Schema API', () => {
     expect(errors).not.toHaveLength(0);
 
     const [valid, errors2] = await schema.validate({
+      name: 'Gustavo',
+      age: 17,
+      isBrazilian: true,
+      email: 'test@gmail.com',
+    });
+
+    expect(valid).toBe(true);
+    expect(errors2).toHaveLength(0);
+  });
+
+  it('should validate an object (sync)', () => {
+    const schema = object<Person>().shape({
+      name: string().required(),
+      age: number().required(),
+      isBrazilian: boolean().required(),
+      email: string().email(),
+    });
+
+    const [invalid, errors] = schema.validateSync({
+      name: null,
+      age: 17,
+      isBrazilian: true,
+      email: '',
+    });
+
+    expect(invalid).toBe(false);
+    expect(errors).not.toHaveLength(0);
+
+    const [valid, errors2] = schema.validateSync({
       name: 'Gustavo',
       age: 17,
       isBrazilian: true,

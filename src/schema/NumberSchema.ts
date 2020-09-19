@@ -89,6 +89,18 @@ class NumberSchema extends Schema<number> {
   }
 
   public async validate(value: any): Promise<IValidationResult> {
+    return this._validate(value);
+  }
+
+  public validateSync(value: any): IValidationResult {
+    return this._validate(value);
+  }
+
+  public cast(value: any): number {
+    return Number(value);
+  }
+
+  private _validate(value: any): IValidationResult {
     const errors: ValidationError[] = [];
 
     this._properties.forEach(property => {
@@ -101,10 +113,6 @@ class NumberSchema extends Schema<number> {
     });
 
     return [errors.length === 0, errors];
-  }
-
-  public cast(value: any): number {
-    return Number(value);
   }
 }
 
