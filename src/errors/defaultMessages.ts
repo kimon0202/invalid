@@ -25,7 +25,9 @@ export const defaultMessages = {
   boolean: {
     type: 'This must be a boolean',
   },
-  object: {},
+  object: {
+    type: 'This must be an object',
+  },
   array: {},
   mixed: {
     required: 'This is required',

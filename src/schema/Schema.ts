@@ -25,14 +25,14 @@ export abstract class Schema<SchemaType> {
   protected readonly _message: string;
 
   // protected _transforms: ITransform[];
-  protected _properties: IProperty[];
+  protected _properties: Set<IProperty>;
 
   /**
    * Creates a new Schema of the given SchemaType
    * @param message The message to throw when type validation fails
    */
   public constructor(message: string) {
-    this._properties = [];
+    this._properties = new Set();
     this._message = message;
   }
 
@@ -41,7 +41,7 @@ export abstract class Schema<SchemaType> {
    * @param message Message to throw when required validation fails
    */
   public required(message?: string): this {
-    this._properties.push(requiredFactory(message));
+    this._properties.add(requiredFactory(message));
     return this;
   }
 

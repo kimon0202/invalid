@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { IValidationResult, Schema } from './Schema';
 import { ValidationError } from '../errors/ValidationError';
+import { defaultMessages } from '../errors/defaultMessages';
 
 type IShape<ShapeType extends object> = {
   [key in keyof ShapeType]?: Schema<ShapeType[key]>;
@@ -12,8 +13,8 @@ type IShape<ShapeType extends object> = {
 class ObjectSchema<ObjectType extends object> extends Schema<ObjectType> {
   private _shape: IShape<ObjectType> = {} as IShape<ObjectType>;
 
-  public constructor() {
-    super(`This must be an object`);
+  public constructor(message?: string) {
+    super(message || defaultMessages.object.type);
   }
 
   public shape(shape: IShape<ObjectType>): ObjectSchema<ObjectType> {
@@ -53,5 +54,11 @@ class ObjectSchema<ObjectType extends object> extends Schema<ObjectType> {
   }
 }
 
-export const object = <ObjectType extends object>(): ObjectSchema<ObjectType> =>
-  new ObjectSchema<ObjectType>();
+/**
+ * Creates a new object schema object
+ * @param message Message to throw when type validation fails
+ * @template ObjectType Type of the object to use as schema
+ */
+export const object = <ObjectType extends object>(
+  message?: string,
+): ObjectSchema<ObjectType> => new ObjectSchema<ObjectType>(message);

@@ -1,9 +1,16 @@
 import { Schema, IValidationResult } from './Schema';
 import { ValidationError } from '../errors/ValidationError';
+import { defaultMessages } from '../errors/defaultMessages';
 
+/**
+ * Boolean Schema
+ */
 class BooleanSchema extends Schema<boolean> {
-  public constructor() {
-    super('This must be a boolean');
+  /**
+   * Creates a new Boolean Schema
+   */
+  public constructor(message?: string) {
+    super(message || defaultMessages.boolean.type);
   }
 
   public async validate(value: any): Promise<IValidationResult> {
@@ -19,4 +26,9 @@ class BooleanSchema extends Schema<boolean> {
   }
 }
 
-export const boolean = (): BooleanSchema => new BooleanSchema();
+/**
+ * Creates a new boolean schema object
+ * @param message Message to throw when type validation fails
+ */
+export const boolean = (message?: string): BooleanSchema =>
+  new BooleanSchema(message);

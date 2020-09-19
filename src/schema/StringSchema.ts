@@ -20,8 +20,8 @@ class StringSchema extends Schema<string> {
   /**
    * Creates a new String Schema
    */
-  public constructor() {
-    super(defaultMessages.string.type);
+  public constructor(message?: string) {
+    super(message || defaultMessages.string.type);
   }
 
   /**
@@ -30,7 +30,7 @@ class StringSchema extends Schema<string> {
    * @param message Message to throw when min length validation fails
    */
   public min(min: number, message?: string): StringSchema {
-    this._properties.push(minLengthFactory(min, message));
+    this._properties.add(minLengthFactory(min, message));
     return this;
   }
 
@@ -40,7 +40,7 @@ class StringSchema extends Schema<string> {
    * @param message Message to throw when max length validation fails
    */
   public max(max: number, message?: string): StringSchema {
-    this._properties.push(maxLengthFactory(max, message));
+    this._properties.add(maxLengthFactory(max, message));
     return this;
   }
 
@@ -49,7 +49,7 @@ class StringSchema extends Schema<string> {
    * @param message Message to throw when email validation failures
    */
   public email(message?: string): StringSchema {
-    this._properties.push(emailFactory(message));
+    this._properties.add(emailFactory(message));
     return this;
   }
 
@@ -58,7 +58,7 @@ class StringSchema extends Schema<string> {
    * @param message Message to throw when UUID validation fails
    */
   public uuid(message?: string): StringSchema {
-    this._properties.push(uuidFactory(message));
+    this._properties.add(uuidFactory(message));
     return this;
   }
 
@@ -67,7 +67,7 @@ class StringSchema extends Schema<string> {
    * @param message Message to throw when URL validation fails
    */
   public url(message?: string): StringSchema {
-    this._properties.push(urlFactory(message));
+    this._properties.add(urlFactory(message));
     return this;
   }
 
@@ -77,7 +77,7 @@ class StringSchema extends Schema<string> {
    * @param message Message to throw when regex matches validation fails
    */
   public matches(regex: RegExp, message?: string): StringSchema {
-    this._properties.push(matchesFactory(regex, message));
+    this._properties.add(matchesFactory(regex, message));
     return this;
   }
 
@@ -105,5 +105,7 @@ class StringSchema extends Schema<string> {
 
 /**
  * Creates a string schema object
+ * @param message Message to throw when type validation fails
  */
-export const string = (): StringSchema => new StringSchema();
+export const string = (message?: string): StringSchema =>
+  new StringSchema(message);
