@@ -36,6 +36,20 @@ class ObjectSchema<ObjectType extends object> extends Schema<ObjectType> {
     return [errors.length === 0, errors];
   }
 
+  public validateSync(value: any): IValidationResult {
+    // TODO: Change to test the properties inside shape variable
+    const errors: ValidationError[] = [];
+
+    Object.keys(this._shape).forEach(shapeKey => {
+      const schema = this._shape[shapeKey] as Schema<any>;
+      const [, schemaErrors] = schema.validateSync(value[shapeKey]);
+
+      if (schemaErrors.length > 0) errors.push(...schemaErrors);
+    });
+
+    return [errors.length === 0, errors];
+  }
+
   /**
    * WIP
    */

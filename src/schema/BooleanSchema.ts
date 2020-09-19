@@ -13,10 +13,17 @@ class BooleanSchema extends Schema<boolean> {
     super(message || defaultMessages.boolean.type);
   }
 
-  public async validate(value: any): Promise<IValidationResult> {
+  private _validate(value: any): IValidationResult {
     const isValid = typeof value === 'boolean';
-
     return [isValid, isValid ? [] : [new ValidationError(this._message)]];
+  }
+
+  public async validate(value: any): Promise<IValidationResult> {
+    return this._validate(value);
+  }
+
+  public validateSync(value: any): IValidationResult {
+    return this._validate(value);
   }
 
   public cast(value: any): boolean {
