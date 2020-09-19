@@ -17,8 +17,8 @@ class NumberSchema extends Schema<number> {
   /**
    * Creates a new Number Schema
    */
-  public constructor() {
-    super(defaultMessages.number.type);
+  public constructor(message?: string) {
+    super(message || defaultMessages.number.type);
   }
 
   /**
@@ -27,7 +27,7 @@ class NumberSchema extends Schema<number> {
    * @param message Message to throw when min value validation failures
    */
   public min(min: number, message?: string): NumberSchema {
-    this._properties.push(minFactory(min, message));
+    this._properties.add(minFactory(min, message));
     return this;
   }
 
@@ -37,7 +37,7 @@ class NumberSchema extends Schema<number> {
    * @param message Message to throw when max value validation failures
    */
   public max(max: number, message?: string): NumberSchema {
-    this._properties.push(maxFactory(max, message));
+    this._properties.add(maxFactory(max, message));
     return this;
   }
 
@@ -47,7 +47,7 @@ class NumberSchema extends Schema<number> {
    * @param message Message to throw when less than validation fails
    */
   public lessThan(value: number, message?: string): NumberSchema {
-    this._properties.push(lessThanFactory(value, message));
+    this._properties.add(lessThanFactory(value, message));
     return this;
   }
 
@@ -57,7 +57,7 @@ class NumberSchema extends Schema<number> {
    * @param message Message to throw when greater than validation fails
    */
   public greaterThan(value: number, message?: string): NumberSchema {
-    this._properties.push(greaterThanFactory(value, message));
+    this._properties.add(greaterThanFactory(value, message));
     return this;
   }
 
@@ -66,7 +66,7 @@ class NumberSchema extends Schema<number> {
    * @param message Message to throw when positive validation fails
    */
   public positive(message = 'This must be a positive number'): NumberSchema {
-    this._properties.push(greaterThanFactory(0, message));
+    this._properties.add(greaterThanFactory(0, message));
     return this;
   }
 
@@ -75,7 +75,7 @@ class NumberSchema extends Schema<number> {
    * @param message Message to throw when negative validation fails
    */
   public negative(message = 'This must be a negative number'): NumberSchema {
-    this._properties.push(lessThanFactory(0, message));
+    this._properties.add(lessThanFactory(0, message));
     return this;
   }
 
@@ -84,7 +84,7 @@ class NumberSchema extends Schema<number> {
    * @param message Message to throw when integer validation fails
    */
   public integer(message?: string): NumberSchema {
-    this._properties.push(integerFactory(message));
+    this._properties.add(integerFactory(message));
     return this;
   }
 
@@ -108,4 +108,9 @@ class NumberSchema extends Schema<number> {
   }
 }
 
-export const number = (): NumberSchema => new NumberSchema();
+/**
+ * Creates a new numbe schema object
+ * @param message Message to throw when type validation fails
+ */
+export const number = (message?: string): NumberSchema =>
+  new NumberSchema(message);
