@@ -48,9 +48,14 @@ export abstract class Schema<SchemaType> {
   /**
    * Validates asynchronously a value using this schema
    * @param value Value to validate with this schema
-   * @param options Validation options
    */
   public abstract async validate(value: any): Promise<IValidationResult>;
+
+  /**
+   * Validates synchronously a value using this schema
+   * @param value Value to validate with this schema
+   */
+  public abstract validateSync(value: any): IValidationResult;
 
   /**
    * Casts synchronously a value to this schema SchemaType
