@@ -1,6 +1,6 @@
-import { IProperty } from '../IProperty';
-import { ValidationError } from '../../errors/ValidationError';
-import { defaultMessages } from '../../errors/defaultMessages';
+import { IProperty } from './IProperty';
+import { ValidationError } from '../errors/ValidationError';
+import { defaultMessages } from '../errors/defaultMessages';
 
 export const requiredFactory = (message?: string): IProperty => ({
   test: value => {

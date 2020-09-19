@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { IProperty } from '../properties/IProperty';
 import { ValidationError } from '../errors/ValidationError';
-import { requiredFactory } from '../properties/mixed/required';
+import { requiredFactory } from '../properties/mixed';
 
 // export interface IValidationOptions {
 //   abortEarly?: boolean;
