@@ -1,4 +1,4 @@
-import { Schema, IValidationResult, IValidationResult } from './Schema';
+import { Schema, IValidationResult } from './Schema';
 import { ValidationError } from '../errors/ValidationError';
 import { defaultMessages } from '../errors/defaultMessages';
 
