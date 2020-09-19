@@ -12,30 +12,30 @@ In addition to its specific methods, it accepts all [`mixed`](https://github.com
 
 Available methods:
 
-  - [`.required(message?: string): StringSchema`](#required)
-  - [`.min(min: number, message?: string): StringSchema`](#min)
-  - [`.max(max: number, message?: string): StringSchema`](#max)
-  - [`.matches(regex: RegExp, message?: string): StringSchema`](#matches)
-  - [`.email(message?: string): StringSchema`](#email)
-  - [`.uuid(message?: string): StringSchema`](#uuid)
-  - [`.url(message?: string): StringSchema`](#url)
+  - [`.required(message?: string): StringSchema`](#requiredmessage-string-stringschema-required)
+  - [`.min(min: number, message?: string): StringSchema`](#minmin-number-message-string-stringschema-min)
+  - [`.max(max: number, message?: string): StringSchema`](#maxmax-number-message-string-stringschema-max)
+  - [`.matches(regex: RegExp, message?: string): StringSchema`](#matchesregex-regexp-message-string-stringschema-matches)
+  - [`.email(message?: string): StringSchema`](#emailmessage-string-stringschema-email)
+  - [`.uuid(message?: string): StringSchema`](#uuidmessage-string-stringschema-uuid)
+  - [`.url(message?: string): StringSchema`](#urlmessage-string-stringschema-url)
 
 ---
 ## API
 
-### `.required(message?: string): StringSchema` {#required}
+### `.required(message?: string): StringSchema`
 
   Ensures a string is not `null` or `undefined`. Any oyher values are accepted.
 
-### `.min(min: number, message?: string): StringSchema` {#min}
+### `.min(min: number, message?: string): StringSchema`
 
   Sets a minimum length for the string value.
 
-### `.max(max: number, message?: string): StringSchema` {#max}
+### `.max(max: number, message?: string): StringSchema`
 
   Sets a maximum length for the string value.
 
-### `.matches(regex: RegExp, message?: string): StringSchema` {#matches}
+### `.matches(regex: RegExp, message?: string): StringSchema`
 
   Matches the value against the given regex.
 
@@ -46,14 +46,14 @@ Available methods:
   await schema.validate('morning') // => false
   ```
 
-### `.email(message?: string): StringSchema` {#email}
+### `.email(message?: string): StringSchema`
 
   Ensures the value is a valid email address.
 
-### `.uuid(message?: string): StringSchema` {#uuid}
+### `.uuid(message?: string): StringSchema`
 
   Ensures the value is a valid UUID.
 
-## `.url(message?: string): StringSchema` {#url}
+### `.url(message?: string): StringSchema`
 
   Ensures the value is a valid URL address.
