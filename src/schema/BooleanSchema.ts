@@ -15,7 +15,7 @@ class BooleanSchema extends Schema<boolean> {
   public cast(value: any): boolean {
     if (value === null) return false;
 
-    return !!value;
+    return Boolean(value);
   }
 }
 
