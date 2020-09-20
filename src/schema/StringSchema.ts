@@ -11,8 +11,6 @@ import {
   urlFactory,
 } from '../properties/string';
 
-// TODO: add function to check if _ptoperties already have an property instance
-
 /**
  * String Schema
  */

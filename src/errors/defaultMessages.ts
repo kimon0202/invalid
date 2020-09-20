@@ -31,5 +31,6 @@ export const defaultMessages = {
   array: {},
   mixed: {
     required: 'This is required',
+    notRquiredNull: 'Null is not an accepted value',
   },
 };

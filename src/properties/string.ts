@@ -8,6 +8,7 @@ const urlRegex = /^((https?|ftp):)?\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF90
 const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 export const matchesFactory = (regex: RegExp, message?: string): IProperty => ({
+  // name: defaultNames.matches,
   test: (value: string) => {
     const isValid = regex.test(value);
     const error = isValid
@@ -18,19 +19,26 @@ export const matchesFactory = (regex: RegExp, message?: string): IProperty => ({
   },
 });
 
-export const uuidFactory = (message?: string): IProperty =>
-  matchesFactory(uuidRegex, message || defaultMessages.string.uuid);
+export const uuidFactory = (message?: string): IProperty => ({
+  ...matchesFactory(uuidRegex, message || defaultMessages.string.uuid),
+  // name: defaultNames.uuid,
+});
 
-export const emailFactory = (message?: string): IProperty =>
-  matchesFactory(emailRegex, message || defaultMessages.string.email);
+export const emailFactory = (message?: string): IProperty => ({
+  ...matchesFactory(emailRegex, message || defaultMessages.string.email),
+  // name: defaultNames.email,
+});
 
-export const urlFactory = (message?: string): IProperty =>
-  matchesFactory(urlRegex, message || defaultMessages.string.url);
+export const urlFactory = (message?: string): IProperty => ({
+  ...matchesFactory(urlRegex, message || defaultMessages.string.url),
+  // name: defaultNames.url,
+});
 
 export const maxLengthFactory = (
   maxValue: number,
   message?: string,
 ): IProperty => ({
+  // name: defaultNames.maxLength,
   test: (value: string) => {
     const isValid = value.length <= maxValue;
     const error = isValid
@@ -45,6 +53,7 @@ export const minLengthFactory = (
   minValue: number,
   message?: string,
 ): IProperty => ({
+  // name: defaultNames.minLength,
   test: (value: string) => {
     const isValid = value.length >= minValue;
     const error = isValid

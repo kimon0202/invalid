@@ -8,6 +8,8 @@ import {
   lessThanFactory,
   maxFactory,
   minFactory,
+  negativeFactory,
+  positiveFactory,
 } from '../properties/number';
 
 /**
@@ -66,7 +68,7 @@ class NumberSchema extends Schema<number> {
    * @param message Message to throw when positive validation fails
    */
   public positive(message = 'This must be a positive number'): NumberSchema {
-    this._properties.add(greaterThanFactory(0, message));
+    this._properties.add(positiveFactory(message));
     return this;
   }
 
@@ -75,7 +77,7 @@ class NumberSchema extends Schema<number> {
    * @param message Message to throw when negative validation fails
    */
   public negative(message = 'This must be a negative number'): NumberSchema {
-    this._properties.add(lessThanFactory(0, message));
+    this._properties.add(negativeFactory(message));
     return this;
   }
 
