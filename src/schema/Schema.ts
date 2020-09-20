@@ -3,18 +3,10 @@ import { IProperty } from '../properties/IProperty';
 import { ValidationError } from '../errors/ValidationError';
 import { requiredFactory, notRequiredFactory } from '../properties/mixed';
 
-// export interface IValidationOptions {
-//   abortEarly?: boolean;
-//   castResult?: boolean;
-// }
-
-// TODO: add tests for ISchema creation
-
 export type IValidationResult = [boolean, ValidationError[]];
 
-// TODO: add self validation
-// TODO: add property transofrms
-// TODO: add validateSync method
+// TODO: add validation options
+// TODO: add errors paths (validateContext)
 
 /**
  * Base Schema type
@@ -72,9 +64,4 @@ export abstract class Schema<SchemaType> {
    * @param value Value to be casted
    */
   public abstract cast(value: any): SchemaType;
-
-  //   public abstract validateSync(
-  //     value: any,
-  //     options?: IValidationOptions,
-  //   ): ITestResult;
 }

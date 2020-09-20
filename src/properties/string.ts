@@ -1,5 +1,5 @@
 /* eslint-disable no-control-regex */
-import { IProperty } from './IProperty';
+import { IProperty, defaultNames, IValidationContext } from './IProperty';
 import { ValidationError } from '../errors/ValidationError';
 import { defaultMessages } from '../errors/defaultMessages';
 
@@ -8,12 +8,15 @@ const urlRegex = /^((https?|ftp):)?\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF90
 const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 export const matchesFactory = (regex: RegExp, message?: string): IProperty => ({
-  // name: defaultNames.matches,
-  test: (value: string) => {
+  name: defaultNames.matches,
+  test: (value: string, context: IValidationContext) => {
     const isValid = regex.test(value);
     const error = isValid
       ? null
-      : new ValidationError(message || defaultMessages.string.matches(regex));
+      : new ValidationError(
+          message || defaultMessages.string.matches(regex),
+          context.path || '',
+        );
 
     return [isValid, error];
   },
@@ -21,29 +24,32 @@ export const matchesFactory = (regex: RegExp, message?: string): IProperty => ({
 
 export const uuidFactory = (message?: string): IProperty => ({
   ...matchesFactory(uuidRegex, message || defaultMessages.string.uuid),
-  // name: defaultNames.uuid,
+  name: defaultNames.uuid,
 });
 
 export const emailFactory = (message?: string): IProperty => ({
   ...matchesFactory(emailRegex, message || defaultMessages.string.email),
-  // name: defaultNames.email,
+  name: defaultNames.email,
 });
 
 export const urlFactory = (message?: string): IProperty => ({
   ...matchesFactory(urlRegex, message || defaultMessages.string.url),
-  // name: defaultNames.url,
+  name: defaultNames.url,
 });
 
 export const maxLengthFactory = (
   maxValue: number,
   message?: string,
 ): IProperty => ({
-  // name: defaultNames.maxLength,
-  test: (value: string) => {
+  name: defaultNames.maxLength,
+  test: (value: string, context: IValidationContext) => {
     const isValid = value.length <= maxValue;
     const error = isValid
       ? null
-      : new ValidationError(message || defaultMessages.string.max(maxValue));
+      : new ValidationError(
+          message || defaultMessages.string.max(maxValue),
+          context.path || '',
+        );
 
     return [isValid, error];
   },
@@ -53,12 +59,15 @@ export const minLengthFactory = (
   minValue: number,
   message?: string,
 ): IProperty => ({
-  // name: defaultNames.minLength,
-  test: (value: string) => {
+  name: defaultNames.minLength,
+  test: (value: string, context: IValidationContext) => {
     const isValid = value.length >= minValue;
     const error = isValid
       ? null
-      : new ValidationError(message || defaultMessages.string.min(minValue));
+      : new ValidationError(
+          message || defaultMessages.string.min(minValue),
+          context.path || '',
+        );
 
     return [isValid, error];
   },
