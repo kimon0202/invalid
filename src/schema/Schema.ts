@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { IProperty } from '../properties/IProperty';
 import { ValidationError } from '../errors/ValidationError';
-import { requiredFactory } from '../properties/mixed';
+import { requiredFactory, notRequiredFactory } from '../properties/mixed';
 
 // export interface IValidationOptions {
 //   abortEarly?: boolean;
@@ -42,6 +42,16 @@ export abstract class Schema<SchemaType> {
    */
   public required(message?: string): this {
     this._properties.add(requiredFactory(message));
+    return this;
+  }
+
+  /**
+   * Marks a schema as not required
+   * @param allowNull Allows the value to be null
+   * @param message Message to throw if not required validation fails (this validation can only fail if allowNull is true)
+   */
+  public notRequired(allowNull: boolean, message?: string): this {
+    this._properties.add(notRequiredFactory(allowNull, message));
     return this;
   }
 

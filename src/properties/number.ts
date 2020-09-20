@@ -6,6 +6,7 @@ export const greaterThanFactory = (
   greaterThan: number,
   message?: string,
 ): IProperty => ({
+  // name: defaultNames.greaterThan,
   test: (value: number) => {
     const isValid = value > greaterThan;
     const error = isValid
@@ -22,6 +23,7 @@ export const lessThanFactory = (
   lessThan: number,
   message?: string,
 ): IProperty => ({
+  // name: defaultNames.lessThan,
   test: (value: number) => {
     const isValid = value < lessThan;
     const error = isValid
@@ -35,6 +37,7 @@ export const lessThanFactory = (
 });
 
 export const minFactory = (min: number, message?: string): IProperty => ({
+  // name: defaultNames.min,
   test: (value: number) => {
     const isValid = value >= min;
     const error = isValid
@@ -46,6 +49,7 @@ export const minFactory = (min: number, message?: string): IProperty => ({
 });
 
 export const maxFactory = (max: number, message?: string): IProperty => ({
+  // name: defaultNames.max,
   test: (value: number) => {
     const isValid = value <= max;
     const error = isValid
@@ -57,6 +61,7 @@ export const maxFactory = (max: number, message?: string): IProperty => ({
 });
 
 export const integerFactory = (message?: string): IProperty => ({
+  // name: defaultNames.integer,
   test: (value: number) => {
     const isValid = Number.isInteger(value);
     const error = isValid
@@ -65,4 +70,14 @@ export const integerFactory = (message?: string): IProperty => ({
 
     return [isValid, error];
   },
+});
+
+export const positiveFactory = (message?: string): IProperty => ({
+  ...greaterThanFactory(0, message || defaultMessages.number.positive),
+  // name: defaultNames.positive,
+});
+
+export const negativeFactory = (message?: string): IProperty => ({
+  ...lessThanFactory(0, message || defaultMessages.number.negative),
+  // name: defaultNames.negative,
 });
