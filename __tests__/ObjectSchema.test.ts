@@ -136,4 +136,67 @@ describe('Object Schema API', () => {
     expect(valid).toBe(true);
     expect(errors2).toHaveLength(0);
   });
+
+  describe('Error paths', () => {
+    it('should return errors with a path property', async () => {
+      const schema = object().shape({
+        name: string().required(),
+        email: string().email(),
+        url: string().url(),
+        age: number().positive(),
+        profile: object().shape({
+          bio: string().min(120),
+        }),
+      });
+
+      const [, errors] = await schema.validate({
+        name: undefined,
+        email: 'test.com',
+        url: 'hello.br',
+        age: -18,
+        profile: {
+          bio: 'not 120 chars',
+        },
+      });
+
+      const paths = errors.map(error => error.path);
+      expect(errors).toHaveLength(5);
+
+      paths.forEach(path => {
+        expect(path).toBeDefined();
+      });
+    });
+
+    it('should return erros with errors path property when options is dclared', async () => {
+      const schema = object().shape({
+        name: string().required(),
+        email: string().email(),
+        url: string().url(),
+        age: number().positive(),
+        profile: object().shape({
+          bio: string().min(120),
+        }),
+      });
+
+      const [, errors] = await schema.validate(
+        {
+          name: undefined,
+          email: 'test.com',
+          url: 'hello.br',
+          age: -18,
+          profile: {
+            bio: 'not 120 chars',
+          },
+        },
+        {},
+      );
+
+      const paths = errors.map(error => error.path);
+      expect(errors).toHaveLength(5);
+
+      paths.forEach(path => {
+        expect(path).toBeDefined();
+      });
+    });
+  });
 });

@@ -1,4 +1,4 @@
-import { Schema, IValidationResult } from './Schema';
+import { Schema, IValidationResult, IValidationOptions } from './Schema';
 import { ValidationError } from '../errors/ValidationError';
 import { IValidationContext } from '../properties/IProperty';
 import { defaultMessages } from '../errors/defaultMessages';
@@ -85,20 +85,38 @@ class StringSchema extends Schema<string> {
     return casted;
   }
 
-  public async validate(value: any): Promise<IValidationResult> {
-    return this._validate(value);
+  public async validate(
+    value: any,
+    options: IValidationOptions = { path: '' },
+  ): Promise<IValidationResult> {
+    options = {
+      ...options,
+      path: '',
+    };
+    return this._validate(value, options);
   }
 
-  public validateSync(value: any): IValidationResult {
-    return this._validate(value);
+  public validateSync(
+    value: any,
+    options: IValidationOptions = { path: '' },
+  ): IValidationResult {
+    options = {
+      ...options,
+      path: '',
+    };
+    return this._validate(value, options);
   }
 
-  private _validate(value: any): IValidationResult {
+  private _validate(
+    value: any,
+    options?: IValidationOptions,
+  ): IValidationResult {
     const errors: ValidationError[] = [];
 
     this._properties.forEach(property => {
       const validationContext: IValidationContext = {
         property,
+        path: options.path || '',
       };
 
       const [, testError] = property.test(value, validationContext);

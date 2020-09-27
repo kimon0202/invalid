@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { IValidationResult, Schema } from './Schema';
+import { IValidationOptions, IValidationResult, Schema } from './Schema';
 import { ValidationError } from '../errors/ValidationError';
 import { IValidationContext } from '../properties/IProperty';
 
@@ -8,24 +8,42 @@ class AnySchema extends Schema<any> {
     super('');
   }
 
-  public async validate(value: any): Promise<IValidationResult> {
-    return this._validate(value);
+  public async validate(
+    value: any,
+    options: IValidationOptions = { path: '' },
+  ): Promise<IValidationResult> {
+    options = {
+      ...options,
+      path: '',
+    };
+    return this._validate(value, options);
   }
 
-  public validateSync(value: any): IValidationResult {
-    return this._validate(value);
+  public validateSync(
+    value: any,
+    options: IValidationOptions = { path: '' },
+  ): IValidationResult {
+    options = {
+      ...options,
+      path: '',
+    };
+    return this._validate(value, options);
   }
 
   public cast(value: any): any {
     return value;
   }
 
-  private _validate(value: any): IValidationResult {
+  private _validate(
+    value: any,
+    options?: IValidationOptions,
+  ): IValidationResult {
     const errors: ValidationError[] = [];
 
     this._properties.forEach(property => {
       const validationContext: IValidationContext = {
         property,
+        path: options.path || '',
       };
 
       const [, testError] = property.test(value, validationContext);
