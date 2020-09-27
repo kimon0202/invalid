@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { IValidationResult, Schema } from './Schema';
+import { IValidationResult, Schema, IValidationOptions } from './Schema';
 import { ValidationError } from '../errors/ValidationError';
 import { defaultMessages } from '../errors/defaultMessages';
 
@@ -22,13 +22,24 @@ class ObjectSchema<ObjectType extends object> extends Schema<ObjectType> {
     return this;
   }
 
-  public async validate(value: any): Promise<IValidationResult> {
+  public async validate(
+    value: any,
+    options: IValidationOptions = { path: '' },
+  ): Promise<IValidationResult> {
+    options = {
+      ...options,
+      path: '',
+    };
     // TODO: Change to test the properties inside shape variable
     const errors: ValidationError[] = [];
 
     await Object.keys(this._shape).forEach(async shapeKey => {
+      // console.log(`Validating ${shapeKey}...`);
       const schema = this._shape[shapeKey] as Schema<any>;
-      const [, schemaErrors] = await schema.validate(value[shapeKey]);
+      const [, schemaErrors] = await schema.validate(value[shapeKey], {
+        ...options,
+        path: options.path ? `${options.path}.${shapeKey}` : shapeKey,
+      });
 
       if (schemaErrors.length > 0) errors.push(...schemaErrors);
     });
@@ -36,13 +47,23 @@ class ObjectSchema<ObjectType extends object> extends Schema<ObjectType> {
     return [errors.length === 0, errors];
   }
 
-  public validateSync(value: any): IValidationResult {
+  public validateSync(
+    value: any,
+    options: IValidationOptions = { path: '' },
+  ): IValidationResult {
+    options = {
+      ...options,
+      path: '',
+    };
     // TODO: Change to test the properties inside shape variable
     const errors: ValidationError[] = [];
 
     Object.keys(this._shape).forEach(shapeKey => {
       const schema = this._shape[shapeKey] as Schema<any>;
-      const [, schemaErrors] = schema.validateSync(value[shapeKey]);
+      const [, schemaErrors] = schema.validateSync(value[shapeKey], {
+        ...options,
+        path: options.path ? `${options.path}.${shapeKey}` : shapeKey,
+      });
 
       if (schemaErrors.length > 0) errors.push(...schemaErrors);
     });
