@@ -51,7 +51,8 @@ const [isValid, errors] = await schema.validate({
  - [`number`](https://github.com/kimon0202/invalid/blob/master/.github/docs/Number.md)
  - [`boolean`](https://github.com/kimon0202/invalid/blob/master/.github/docs/Boolean.md)
  - [`object`](https://github.com/kimon0202/invalid/blob/master/.github/docs/Object.md)
-
+ - [`array`](https://github.com/kimon0202/invalid/blob/master/.github/docs/Array.md)
+ - [`Custom Schemas`](https://github.com/kimon0202/blob/master/.github/docs/CustomSchema.md)
 <!---
   Add guides for creatingc custom schemas.
 ->
