@@ -3,8 +3,7 @@ export const defaultMessages = {
     type: 'This must be a string',
     min: (min: number): string =>
       `This must be at least ${min} characters long`,
-    max: (max: number): string =>
-      `This must be at least ${max} characters long`,
+    max: (max: number): string => `This must be at most ${max} characters long`,
     matches: (regex: RegExp): string =>
       `This does not match the regex: ${regex}`,
     url: 'This must be a valid URL',
@@ -28,7 +27,14 @@ export const defaultMessages = {
   object: {
     type: 'This must be an object',
   },
-  array: {},
+  array: {
+    type: `This must be an array`,
+    min: (min: number): string => `This must be at least ${min} items long`,
+    max: (max: number): string => `This must be at most ${max} items long`,
+    length: (value: number): string => `This array's length must be ${value}`,
+    // includes
+    // notIncludes
+  },
   mixed: {
     required: 'This is required',
     notRquiredNull: 'Null is not an accepted value',

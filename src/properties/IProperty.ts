@@ -31,4 +31,8 @@ export const defaultNames = {
   matches: 'matches',
   minLength: 'minLength',
   maxLength: 'maxLength',
+  // array
+  minArray: 'min',
+  maxArray: 'max',
+  length: 'length',
 };
