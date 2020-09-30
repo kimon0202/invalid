@@ -34,4 +34,5 @@ export const defaultNames = {
   // array
   minArray: 'min',
   maxArray: 'max',
+  length: 'length',
 };

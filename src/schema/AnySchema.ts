@@ -3,7 +3,13 @@ import { IValidationOptions, IValidationResult, Schema } from './Schema';
 import { ValidationError } from '../errors/ValidationError';
 import { IValidationContext } from '../properties/IProperty';
 
+/**
+ * Any Schema
+ */
 class AnySchema extends Schema<any> {
+  /**
+   * Creates a new Any Schema
+   */
   public constructor() {
     super('');
   }
@@ -54,4 +60,7 @@ class AnySchema extends Schema<any> {
   }
 }
 
+/**
+ * Creates a new any schema object
+ */
 export const any = (): AnySchema => new AnySchema();

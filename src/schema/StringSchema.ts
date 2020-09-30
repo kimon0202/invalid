@@ -23,7 +23,7 @@ class StringSchema extends Schema<string> {
   }
 
   /**
-   * Sets a minimum value that a tring must have
+   * Sets a minimum value that a string must have
    * @param min Minimum value length
    * @param message Message to throw when min length validation fails
    */

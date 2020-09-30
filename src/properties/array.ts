@@ -31,3 +31,18 @@ export const maxFactory = (max: number, message?: string): IProperty => ({
     return [isValid, error];
   },
 });
+
+export const lengthFactory = (length: number, message?: string): IProperty => ({
+  name: defaultNames.length,
+  test: (value, context) => {
+    const isValid = (value as Array<any>).length === length;
+    const error = isValid
+      ? null
+      : new ValidationError(
+          message || defaultMessages.array.length(length),
+          context.path || '',
+        );
+
+    return [isValid, error];
+  },
+});

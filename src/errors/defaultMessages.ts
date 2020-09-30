@@ -31,6 +31,7 @@ export const defaultMessages = {
     type: `This must be an array`,
     min: (min: number): string => `This must be at least ${min} items long`,
     max: (max: number): string => `This must be at most ${max} items long`,
+    length: (value: number): string => `This array's length must be ${value}`,
     // includes
     // notIncludes
   },
