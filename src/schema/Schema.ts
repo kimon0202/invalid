@@ -73,5 +73,5 @@ export abstract class Schema<SchemaType> {
    * Casts synchronously a value to this schema SchemaType
    * @param value Value to be casted
    */
-  public abstract cast(value: any): SchemaType;
+  public abstract cast(value: any): any;
 }

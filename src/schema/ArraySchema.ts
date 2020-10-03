@@ -1,5 +1,4 @@
-import { minFactory, maxFactory, lengthFactory } from 'src/properties/array';
-
+import { minFactory, maxFactory, lengthFactory } from '../properties/array';
 import { Schema, IValidationResult, IValidationOptions } from './Schema';
 import { defaultMessages } from '../errors/defaultMessages';
 import { ValidationError } from '../errors/ValidationError';
@@ -13,7 +12,7 @@ import { IValidationContext } from '../properties/IProperty';
  * Array Schema
  * @template ArrayType Type of the schema array
  */
-class ArraySchema<ArrayType> extends Schema<ArrayType[]> {
+class ArraySchema<ArrayType = any> extends Schema<ArrayType[]> {
   /**
    * Creates a new Array Schema
    */
@@ -73,7 +72,10 @@ class ArraySchema<ArrayType> extends Schema<ArrayType[]> {
     return this._validate(value, options);
   }
 
-  public cast(value: any): ArrayType[] {
+  public cast(value: any): ArrayType[] | any[][] {
+    if (value && typeof value === 'object')
+      return Object.keys(value).map(key => [key, value[key]]);
+
     if (!Array.isArray(value)) return value;
 
     return [...value] as ArrayType[];
