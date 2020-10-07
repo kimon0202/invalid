@@ -9,8 +9,9 @@ import { requiredFactory, notRequiredFactory } from '../properties/mixed';
 export abstract class Schema<SchemaType> {
   protected readonly _typeMessage: string;
   protected readonly _type: SchemaType; // remove later
-
   protected readonly _properties: Set<IProperty>;
+
+  protected _schemaType: string;
 
   /**
    * Creates a new Schema of the given SchemaType
@@ -45,5 +46,12 @@ export abstract class Schema<SchemaType> {
    */
   public get properties(): Set<IProperty> {
     return this._properties;
+  }
+
+  /**
+   * Gets the schema type
+   */
+  public get type(): string {
+    return this._schemaType;
   }
 }

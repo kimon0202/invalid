@@ -18,6 +18,7 @@ class StringSchema extends Schema<string> {
    */
   public constructor(message?: string) {
     super(message || defaultMessages.string.type);
+    this._schemaType = 'string';
   }
 
   /**

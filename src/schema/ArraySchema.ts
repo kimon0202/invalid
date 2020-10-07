@@ -10,12 +10,13 @@ import { minFactory, maxFactory, lengthFactory } from '../properties/array';
  * Array Schema
  * @template ArrayType Type of the schema array
  */
-class ArraySchema<ArrayType = any> extends Schema<ArrayType[]> {
+export class ArraySchema<ArrayType = any> extends Schema<ArrayType[]> {
   /**
    * Creates a new Array Schema
    */
   public constructor() {
     super(defaultMessages.array.type);
+    this._schemaType = 'array';
   }
 
   /**

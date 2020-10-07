@@ -10,6 +10,7 @@ class BooleanSchema extends Schema<boolean> {
    */
   public constructor(message?: string) {
     super(message || defaultMessages.boolean.type);
+    this._schemaType = 'boolean';
   }
 }
 

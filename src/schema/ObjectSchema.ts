@@ -9,11 +9,14 @@ type IShape<ShapeType extends object> = {
 
 // TODO: add path to validation message
 
-class ObjectSchema<ObjectType extends object> extends Schema<ObjectType> {
+export class ObjectSchema<ObjectType extends object> extends Schema<
+  ObjectType
+> {
   private _shape: IShape<ObjectType> = {} as IShape<ObjectType>;
 
   public constructor(message?: string) {
     super(message || defaultMessages.object.type);
+    this._schemaType = 'object';
   }
 
   public shape(shape: IShape<ObjectType>): ObjectSchema<ObjectType> {

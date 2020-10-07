@@ -4,12 +4,13 @@ import { Schema } from './Schema';
 /**
  * Any Schema
  */
-class AnySchema extends Schema<any> {
+export class AnySchema extends Schema<any> {
   /**
    * Creates a new Any Schema
    */
   public constructor() {
     super('');
+    this._schemaType = 'any';
   }
 }
 

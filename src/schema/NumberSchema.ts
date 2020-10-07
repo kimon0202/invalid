@@ -19,6 +19,7 @@ class NumberSchema extends Schema<number> {
    */
   public constructor(message?: string) {
     super(message || defaultMessages.number.type);
+    this._schemaType = 'number';
   }
 
   /**

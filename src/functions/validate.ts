@@ -9,6 +9,6 @@ export const validate = async <SchemaType>(
   value: Readonly<unknown>,
   options?: IValidationOptions,
 ): Promise<ValidationResult<SchemaType>> => {
-  console.log(schema, value);
+  console.log(schema, value, options);
   return [{} as SchemaType, [] as ValidationError[]];
 };
