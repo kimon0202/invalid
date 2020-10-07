@@ -1,27 +1,16 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { IProperty } from '../properties/IProperty';
-import { ValidationError } from '../errors/ValidationError';
+import { IProperty } from '../types';
 import { requiredFactory, notRequiredFactory } from '../properties/mixed';
-
-export type IValidationResult = [boolean, ValidationError[]];
-
-// TODO: add validation options
-// TODO: add errors paths (validateContext)
-
-export interface IValidationOptions {
-  path?: string;
-}
 
 /**
  * Base Schema type
  * @template SchemaType The type of the schema
  */
 export abstract class Schema<SchemaType> {
-  protected readonly _schemaType: SchemaType;
-  protected readonly _message: string;
+  protected readonly _typeMessage: string;
+  protected readonly _type: SchemaType; // remove later
 
-  // protected _transforms: ITransform[];
-  protected _properties: Set<IProperty>;
+  protected readonly _properties: Set<IProperty>;
 
   /**
    * Creates a new Schema of the given SchemaType
@@ -29,7 +18,7 @@ export abstract class Schema<SchemaType> {
    */
   public constructor(message: string) {
     this._properties = new Set();
-    this._message = message;
+    this._typeMessage = message;
   }
 
   /**
@@ -52,26 +41,9 @@ export abstract class Schema<SchemaType> {
   }
 
   /**
-   * Validates asynchronously a value using this schema
-   * @param value Value to validate with this schema
+   * Gets all properties a schema has
    */
-  public abstract async validate(
-    value: any,
-    options?: IValidationOptions,
-  ): Promise<IValidationResult>;
-
-  /**
-   * Validates synchronously a value using this schema
-   * @param value Value to validate with this schema
-   */
-  public abstract validateSync(
-    value: any,
-    options?: IValidationOptions,
-  ): IValidationResult;
-
-  /**
-   * Casts synchronously a value to this schema SchemaType
-   * @param value Value to be casted
-   */
-  public abstract cast(value: any): any;
+  public get properties(): Set<IProperty> {
+    return this._properties;
+  }
 }

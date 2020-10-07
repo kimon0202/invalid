@@ -1,3 +1,28 @@
+export const defaultNames = {
+  // mixed
+  required: 'required',
+  notRequired: 'notRequired',
+  // number
+  greaterThan: 'greaterThan',
+  lessThan: 'lessThan',
+  min: 'min',
+  max: 'max',
+  positive: 'positive',
+  negative: 'negative',
+  integer: 'integer',
+  // string
+  email: 'email',
+  url: 'url',
+  uuid: 'uuid',
+  matches: 'matches',
+  minLength: 'minLength',
+  maxLength: 'maxLength',
+  // array
+  minArray: 'min',
+  maxArray: 'max',
+  length: 'length',
+};
+
 export const defaultMessages = {
   string: {
     type: 'This must be a string',

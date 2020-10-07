@@ -1,17 +1,6 @@
 import { array } from '../src';
 
 describe('Array Schema API', () => {
-  it('should cast the given values', () => {
-    const schema = array<number>();
-
-    expect(schema.cast('hello')).toBe('hello');
-    expect(schema.cast(96.5)).toBe(96.5);
-    expect(schema.cast(true)).toBe(true);
-    expect(schema.cast(null)).toBeNull();
-    expect(schema.cast(undefined)).toBeUndefined();
-    expect(schema.cast({ hello: 'world' })).toStrictEqual([['hello', 'world']]);
-  });
-
   it('should validate an array with min length schema', async () => {
     const schema = array<string>().min(3);
 

@@ -1,8 +1,6 @@
+import { Schema } from './Schema';
+import { defaultMessages } from '../defaultMaps';
 import { minFactory, maxFactory, lengthFactory } from '../properties/array';
-import { Schema, IValidationResult, IValidationOptions } from './Schema';
-import { defaultMessages } from '../errors/defaultMessages';
-import { ValidationError } from '../errors/ValidationError';
-import { IValidationContext } from '../properties/IProperty';
 
 // TODO: add tests
 // TODO: add type validation
@@ -48,56 +46,6 @@ class ArraySchema<ArrayType = any> extends Schema<ArrayType[]> {
   public length(value: number, message?: string): this {
     this._properties.add(lengthFactory(value, message));
     return this;
-  }
-
-  public async validate(
-    value: any,
-    options?: IValidationOptions,
-  ): Promise<IValidationResult> {
-    options = {
-      ...options,
-      path: '',
-    };
-    return this._validate(value, options);
-  }
-
-  public validateSync(
-    value: any,
-    options?: IValidationOptions,
-  ): IValidationResult {
-    options = {
-      ...options,
-      path: '',
-    };
-    return this._validate(value, options);
-  }
-
-  public cast(value: any): ArrayType[] | any[][] {
-    if (value && typeof value === 'object')
-      return Object.keys(value).map(key => [key, value[key]]);
-
-    if (!Array.isArray(value)) return value;
-
-    return [...value] as ArrayType[];
-  }
-
-  private _validate(
-    value: any,
-    options?: IValidationOptions,
-  ): IValidationResult {
-    const errors: ValidationError[] = [];
-
-    this._properties.forEach(property => {
-      const validationContext: IValidationContext = {
-        property,
-        path: options.path || '',
-      };
-
-      const [, testError] = property.test(value, validationContext);
-      if (testError) errors.push(testError);
-    });
-
-    return [errors.length === 0, errors];
   }
 }
 

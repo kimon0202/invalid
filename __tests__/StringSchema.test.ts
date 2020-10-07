@@ -6,19 +6,6 @@ import { ValidationError } from '../src/errors/ValidationError';
 // TODO: Add not required tests
 
 describe('String Schema API', () => {
-  it('should cast the given values', () => {
-    const schema = string();
-
-    const stringValue = schema.cast('hello');
-    expect(stringValue).toBe('hello');
-
-    const number = schema.cast(5);
-    expect(number).toBe('5');
-
-    const obj = schema.cast({ hello: 'world' });
-    expect(obj).toBe('{"hello":"world"}');
-  });
-
   describe('Min Length', () => {
     it('should correctly assert a schema with a minimun length', async () => {
       const schema = string().min(5);

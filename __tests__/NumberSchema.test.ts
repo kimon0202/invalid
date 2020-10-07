@@ -3,19 +3,6 @@ import { number } from '../src/schema/NumberSchema';
 import { defaultMessages } from '../src/errors/defaultMessages';
 
 describe('Number Schema API', () => {
-  it('should cast the given values', () => {
-    const schema = number();
-
-    const string = schema.cast('89.5');
-    expect(string).toBe(89.5);
-
-    const num = schema.cast(4);
-    expect(num).toBe(4);
-
-    const nan = schema.cast({ hello: 'world' });
-    expect(nan).toBeNaN();
-  });
-
   describe('Min Value', () => {
     it('should validate a number with min value schema', async () => {
       const schema = number().min(5);

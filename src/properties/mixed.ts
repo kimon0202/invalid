@@ -1,19 +1,19 @@
-import { IProperty, defaultNames, IValidationContext } from './IProperty';
-import { ValidationError } from '../errors/ValidationError';
-import { defaultMessages } from '../errors/defaultMessages';
+import { IProperty } from '../types';
+import { ValidationError } from '../ValidationError';
+import { defaultNames, defaultMessages } from '../defaultMaps';
 
 export const requiredFactory = (message?: string): IProperty => ({
   name: defaultNames.required,
-  test: (value: any, context: IValidationContext) => {
-    const isValid = value !== null && value !== undefined;
-    const error = isValid
-      ? null
-      : new ValidationError(
-          message || defaultMessages.mixed.required,
-          context.path || '',
-        );
+  test: (value: any, context) => {
+    const error =
+      value !== null && value !== undefined
+        ? null
+        : new ValidationError(
+            message || defaultMessages.mixed.required,
+            context.property || '',
+          );
 
-    return [isValid, error];
+    return error;
   },
 });
 
@@ -22,16 +22,12 @@ export const notRequiredFactory = (
   message?: string,
 ): IProperty => ({
   name: defaultNames.notRequired,
-  test: (value: any, context: IValidationContext) => {
-    if (!allowNull && value === null)
-      return [
-        false,
-        new ValidationError(
+  test: (value: any, context) => {
+    return !allowNull && value === null
+      ? new ValidationError(
           message || defaultMessages.mixed.notRquiredNull,
-          context.path || '',
-        ),
-      ];
-
-    return [true, null];
+          context.property || '',
+        )
+      : null;
   },
 });

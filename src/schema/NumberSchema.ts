@@ -1,7 +1,5 @@
-import { IValidationResult, Schema, IValidationOptions } from './Schema';
-import { IValidationContext } from '../properties/IProperty';
-import { ValidationError } from '../errors/ValidationError';
-import { defaultMessages } from '../errors/defaultMessages';
+import { Schema } from './Schema';
+import { defaultMessages } from '../defaultMaps';
 import {
   greaterThanFactory,
   integerFactory,
@@ -88,51 +86,6 @@ class NumberSchema extends Schema<number> {
   public integer(message?: string): NumberSchema {
     this._properties.add(integerFactory(message));
     return this;
-  }
-
-  public async validate(
-    value: any,
-    options: IValidationOptions = { path: '' },
-  ): Promise<IValidationResult> {
-    options = {
-      ...options,
-      path: '',
-    };
-    return this._validate(value, options);
-  }
-
-  public validateSync(
-    value: any,
-    options: IValidationOptions = { path: '' },
-  ): IValidationResult {
-    options = {
-      ...options,
-      path: '',
-    };
-    return this._validate(value, options);
-  }
-
-  public cast(value: any): number {
-    return Number(value);
-  }
-
-  private _validate(
-    value: any,
-    options?: IValidationOptions,
-  ): IValidationResult {
-    const errors: ValidationError[] = [];
-
-    this._properties.forEach(property => {
-      const validationContext: IValidationContext = {
-        property,
-        path: options.path || '',
-      };
-
-      const [, testError] = property.test(value, validationContext);
-      if (testError) errors.push(testError);
-    });
-
-    return [errors.length === 0, errors];
   }
 }
 

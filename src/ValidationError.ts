@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 /**
  * Validation Error
  */
@@ -27,5 +28,19 @@ export class ValidationError {
    */
   public get path(): string {
     return this._path;
+  }
+}
+
+/**
+ * Parsing Error
+ */
+export class ParsingError extends Error {
+  /**
+   * Creates a new Parsing Error
+   * @param message Error message to show
+   * @param path Path of the error inside an object
+   */
+  public constructor(message: string, path = '') {
+    super(`Parsing Error at ${path}: ${message}`);
   }
 }

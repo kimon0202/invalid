@@ -1,7 +1,5 @@
-import { Schema, IValidationResult, IValidationOptions } from './Schema';
-import { ValidationError } from '../errors/ValidationError';
-import { IValidationContext } from '../properties/IProperty';
-import { defaultMessages } from '../errors/defaultMessages';
+import { Schema } from './Schema';
+import { defaultMessages } from '../defaultMaps';
 import {
   minLengthFactory,
   maxLengthFactory,
@@ -79,52 +77,21 @@ class StringSchema extends Schema<string> {
     return this;
   }
 
-  public cast(value: any): string {
-    const casted =
-      typeof value === 'object' ? JSON.stringify(value) : String(value);
-    return casted;
-  }
+  // private _validate(value: any, options?: IValidationOptions): string {
+  //   const errors: ValidationError[] = [];
 
-  public async validate(
-    value: any,
-    options: IValidationOptions = { path: '' },
-  ): Promise<IValidationResult> {
-    options = {
-      ...options,
-      path: '',
-    };
-    return this._validate(value, options);
-  }
+  //   this._properties.forEach(property => {
+  //     const validationContext: IValidationContext = {
+  //       property,
+  //       path: options.path || '',
+  //     };
 
-  public validateSync(
-    value: any,
-    options: IValidationOptions = { path: '' },
-  ): IValidationResult {
-    options = {
-      ...options,
-      path: '',
-    };
-    return this._validate(value, options);
-  }
+  //     const [, testError] = property.test(value, validationContext);
+  //     if (testError) errors.push(testError);
+  //   });
 
-  private _validate(
-    value: any,
-    options?: IValidationOptions,
-  ): IValidationResult {
-    const errors: ValidationError[] = [];
-
-    this._properties.forEach(property => {
-      const validationContext: IValidationContext = {
-        property,
-        path: options.path || '',
-      };
-
-      const [, testError] = property.test(value, validationContext);
-      if (testError) errors.push(testError);
-    });
-
-    return [errors.length === 0, errors];
-  }
+  //   return [errors.length === 0, errors];
+  // }
 }
 
 /**
