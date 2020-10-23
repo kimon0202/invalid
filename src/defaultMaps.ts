@@ -1,3 +1,5 @@
+import { IValidationOptions } from './types';
+
 export const defaultNames = {
   // mixed
   required: 'required',
@@ -64,4 +66,9 @@ export const defaultMessages = {
     required: 'This is required',
     notRquiredNull: 'Null is not an accepted value',
   },
+};
+
+export const defaultOptions: IValidationOptions = {
+  path: 'root',
+  strict: false,
 };

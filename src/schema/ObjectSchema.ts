@@ -19,7 +19,11 @@ export class ObjectSchema<ObjectType extends object> extends Schema<
     this._schemaType = 'object';
   }
 
-  public shape(shape: IShape<ObjectType>): ObjectSchema<ObjectType> {
+  public get shape(): IShape<Object> {
+    return this._shape;
+  }
+
+  public setShape(shape: IShape<ObjectType>): ObjectSchema<ObjectType> {
     this._shape = shape;
     return this;
   }
@@ -59,4 +63,4 @@ export const object = <ObjectType extends object>(
   shape: IShape<ObjectType>,
   message?: string,
 ): ObjectSchema<ObjectType> =>
-  new ObjectSchema<ObjectType>(message).shape(shape);
+  new ObjectSchema<ObjectType>(message).setShape(shape);

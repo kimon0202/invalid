@@ -1,10 +1,21 @@
 {
   "name": "@bauke2112/invalidjs",
   "version": "1.4.0",
+  "keywords": [
+    "validation",
+    "validate",
+    "check",
+    "schema"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kimon0202/invalid.git"
+  },
+  "license": "MIT",
+  "author": "Gustavo Teodoro Bauke",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
-  "license": "MIT",
   "directories": {
     "src": "src",
     "tests": "__tests__"
@@ -13,25 +24,14 @@
     "dist",
     "typings"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/kimon0202/invalid.git"
-  },
-  "author": "Gustavo Teodoro Bauke",
-  "keywords": [
-    "validation",
-    "validate",
-    "check",
-    "schema"
-  ],
   "scripts": {
+    "prebuild": "rimraf dist typings",
+    "build": "rollup -c rollup.config.js",
     "commit": "git-cz",
+    "coveralls": "cat ./coverage/lcov.info | coveralls",
     "lint": "eslint --ext .js,.ts src/",
     "test": "cross-env NODE_ENV=test jest",
     "test:coverage": "cross-env NODE_ENV=test jest --coverage",
-    "prebuild": "rimraf dist typings",
-    "build": "rollup -c rollup.config.js",
-    "coveralls": "cat ./coverage/lcov.info | coveralls",
     "tsc": "tsc --skipLibCheck"
   },
   "husky": {
@@ -92,6 +92,7 @@
     "sort-package-json": "^1.45.0",
     "ts-jest": "^26.3.0",
     "ts-node": "^9.0.0",
+    "ts-node-dev": "^1.0.0",
     "typescript": "^4.0.2"
   }
 }

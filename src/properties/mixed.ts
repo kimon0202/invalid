@@ -4,7 +4,7 @@ import { defaultNames, defaultMessages } from '../defaultMaps';
 
 export const requiredFactory = (message?: string): IProperty => ({
   name: defaultNames.required,
-  test: (value: any, context) => {
+  test: (value: unknown, context) => {
     const error =
       value !== null && value !== undefined
         ? null

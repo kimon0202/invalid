@@ -35,22 +35,10 @@ export class ErrorGroup extends Error {
   public constructor(errors: ValidationError[]) {
     super(
       `Errors happened while validating:\n${errors.map(
-        err => `Error at ${err.path}: ${err.message}\n`,
+        // eslint-disable-next-line prettier/prettier
+        err => `Error at ${err.path}: ${err.message}\n`
       )}`,
     );
-  }
-}
-
-/**
- * Parsing Error
- */
-export class ParsingError extends Error {
-  /**
-   * Creates a new Parsing Error
-   * @param message Error message to show
-   * @param path Path of the error inside an object
-   */
-  public constructor(message: string, path = '') {
-    super(`Parsing Error at ${path}: ${message}`);
+    this.stack = '';
   }
 }
