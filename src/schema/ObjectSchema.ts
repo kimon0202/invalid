@@ -56,5 +56,7 @@ export class ObjectSchema<ObjectType extends object> extends Schema<
  * @template ObjectType Type of the object to use as schema
  */
 export const object = <ObjectType extends object>(
+  shape: IShape<ObjectType>,
   message?: string,
-): ObjectSchema<ObjectType> => new ObjectSchema<ObjectType>(message);
+): ObjectSchema<ObjectType> =>
+  new ObjectSchema<ObjectType>(message).shape(shape);

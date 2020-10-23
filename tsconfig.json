@@ -19,7 +19,8 @@
      "esModuleInterop": true,
      "declaration": true,
      "baseUrl": ".",
-     "rootDir": "./src"
+     "rootDir": "./src",
+     "downlevelIteration": true
   },
   "include": ["./src/**/*"],
   "exclude": ["node_modules", "__tests__", "dist"]

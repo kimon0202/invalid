@@ -31,6 +31,16 @@ export class ValidationError {
   }
 }
 
+export class ErrorGroup extends Error {
+  public constructor(errors: ValidationError[]) {
+    super(
+      `Errors happened while validating:\n${errors.map(
+        err => `Error at ${err.path}: ${err.message}\n`,
+      )}`,
+    );
+  }
+}
+
 /**
  * Parsing Error
  */
