@@ -12,13 +12,18 @@ export const errors = async <SchemaType>(
 ): Promise<ValidationError[]> => {
   const errorArray: ValidationError[] = [];
 
-  // required test not working properly
-  // TODO: fix required test
-
   if (schema instanceof ObjectSchema) {
+    [...schema.properties].forEach(property => {
+      const error = property.test(value, {
+        property: options.path || 'root',
+      });
+
+      if (error) errorArray.push(error);
+    });
+
     Object.keys(schema.shape).forEach(async key => {
       const innerSchema = schema.shape[key] as Schema<any>;
-      const valueToCheck: unknown = value || undefined;
+      const valueToCheck: unknown = value[key];
 
       const innerErrors = await errors(innerSchema, valueToCheck, {
         ...options,

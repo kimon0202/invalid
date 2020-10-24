@@ -6,5 +6,5 @@ export { any } from './schema/AnySchema';
 export { array } from './schema/ArraySchema';
 export { Schema } from './schema/Schema';
 
-export { parse } from './functions/parse';
+export { parse, errors } from './functions/parse';
 export { validate } from './functions/validate';
