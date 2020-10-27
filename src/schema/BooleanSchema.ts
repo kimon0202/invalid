@@ -1,5 +1,5 @@
+import { InvalidTypes } from '../types';
 import { Schema } from './Schema';
-import { defaultMessages } from '../defaultMaps';
 
 /**
  * Boolean Schema
@@ -8,15 +8,16 @@ class BooleanSchema extends Schema<boolean> {
   /**
    * Creates a new Boolean Schema
    */
-  public constructor(message?: string) {
-    super(message || defaultMessages.boolean.type);
-    this._schemaType = 'boolean';
+  public constructor() {
+    super(InvalidTypes.boolean);
+  }
+
+  public check(value: unknown): boolean {
+    return typeof value === 'boolean';
   }
 }
 
 /**
  * Creates a new boolean schema object
- * @param message Message to throw when type validation fails
  */
-export const boolean = (message?: string): BooleanSchema =>
-  new BooleanSchema(message);
+export const boolean = (): BooleanSchema => new BooleanSchema();

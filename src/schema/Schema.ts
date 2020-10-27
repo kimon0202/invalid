@@ -1,25 +1,29 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { IProperty } from '../types';
+import { InvalidTypes, IProperty } from '../types';
 import { requiredFactory, notRequiredFactory } from '../properties/mixed';
+import { defaultMessages } from '../defaultMaps';
+
+export type Infer<T extends Schema> = T['_type'];
 
 /**
  * Base Schema type
  * @template SchemaType The type of the schema
  */
-export abstract class Schema<SchemaType> {
-  protected readonly _typeMessage: string;
-  protected readonly _type: SchemaType; // remove later
-  protected readonly _properties: Set<IProperty>;
+export abstract class Schema<SchemaType = any> {
+  public readonly _type: SchemaType;
 
-  protected _schemaType: string;
+  protected readonly _typeMessage: string;
+  protected readonly _schemaType: InvalidTypes;
+  protected readonly _properties: Set<IProperty>;
 
   /**
    * Creates a new Schema of the given SchemaType
    * @param message The message to throw when type validation fails
    */
-  public constructor(message: string) {
+  public constructor(type: InvalidTypes) {
     this._properties = new Set();
-    this._typeMessage = message;
+    this._typeMessage = defaultMessages.string.type;
+    this._schemaType = type;
   }
 
   /**
@@ -54,4 +58,7 @@ export abstract class Schema<SchemaType> {
   public get type(): string {
     return this._schemaType;
   }
+
+  // abstract methods
+  public abstract check(value: unknown): boolean;
 }

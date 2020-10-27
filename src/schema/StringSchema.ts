@@ -1,5 +1,5 @@
 import { Schema } from './Schema';
-import { defaultMessages } from '../defaultMaps';
+import { InvalidTypes } from '../types';
 import {
   minLengthFactory,
   maxLengthFactory,
@@ -16,9 +16,12 @@ class StringSchema extends Schema<string> {
   /**
    * Creates a new String Schema
    */
-  public constructor(message?: string) {
-    super(message || defaultMessages.string.type);
-    this._schemaType = 'string';
+  public constructor() {
+    super(InvalidTypes.string);
+  }
+
+  public check(value: unknown): boolean {
+    return typeof value === 'string';
   }
 
   /**
@@ -77,27 +80,9 @@ class StringSchema extends Schema<string> {
     this._properties.add(matchesFactory(regex, message));
     return this;
   }
-
-  // private _validate(value: any, options?: IValidationOptions): string {
-  //   const errors: ValidationError[] = [];
-
-  //   this._properties.forEach(property => {
-  //     const validationContext: IValidationContext = {
-  //       property,
-  //       path: options.path || '',
-  //     };
-
-  //     const [, testError] = property.test(value, validationContext);
-  //     if (testError) errors.push(testError);
-  //   });
-
-  //   return [errors.length === 0, errors];
-  // }
 }
 
 /**
  * Creates a string schema object
- * @param message Message to throw when type validation fails
  */
-export const string = (message?: string): StringSchema =>
-  new StringSchema(message);
+export const string = (): StringSchema => new StringSchema();

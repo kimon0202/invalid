@@ -1,6 +1,6 @@
-import { Schema } from './Schema';
-import { defaultMessages } from '../defaultMaps';
+import { Schema, Infer } from './Schema';
 import { minFactory, maxFactory, lengthFactory } from '../properties/array';
+import { InvalidTypes } from '../types';
 
 // TODO: add tests
 // TODO: add type validation
@@ -10,13 +10,24 @@ import { minFactory, maxFactory, lengthFactory } from '../properties/array';
  * Array Schema
  * @template ArrayType Type of the schema array
  */
-export class ArraySchema<ArrayType = any> extends Schema<ArrayType[]> {
+export class ArraySchema<ArrayType extends Schema> extends Schema<
+  Infer<ArrayType>[]
+> {
+  private readonly elementSchema: ArrayType;
+
   /**
    * Creates a new Array Schema
    */
-  public constructor() {
-    super(defaultMessages.array.type);
-    this._schemaType = 'array';
+  public constructor(element: ArrayType) {
+    super(InvalidTypes.array);
+    this.elementSchema = element;
+  }
+
+  public check(value: unknown): boolean {
+    return (
+      Array.isArray(value) &&
+      value.every(item => this.elementSchema.check(item))
+    );
   }
 
   /**
@@ -54,5 +65,6 @@ export class ArraySchema<ArrayType = any> extends Schema<ArrayType[]> {
  * Creates a array schema object
  * @template ArrayType The array's schema type
  */
-export const array = <ArrayType>(): ArraySchema<ArrayType> =>
-  new ArraySchema<ArrayType>();
+export const array = <ArrayType extends Schema>(
+  element: ArrayType,
+): ArraySchema<ArrayType> => new ArraySchema<ArrayType>(element);

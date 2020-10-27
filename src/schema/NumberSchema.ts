@@ -1,5 +1,5 @@
 import { Schema } from './Schema';
-import { defaultMessages } from '../defaultMaps';
+import { InvalidTypes } from '../types';
 import {
   greaterThanFactory,
   integerFactory,
@@ -17,9 +17,12 @@ class NumberSchema extends Schema<number> {
   /**
    * Creates a new Number Schema
    */
-  public constructor(message?: string) {
-    super(message || defaultMessages.number.type);
-    this._schemaType = 'number';
+  public constructor() {
+    super(InvalidTypes.number);
+  }
+
+  public check(value: unknown): boolean {
+    return typeof value === 'number';
   }
 
   /**
@@ -92,7 +95,5 @@ class NumberSchema extends Schema<number> {
 
 /**
  * Creates a new numbe schema object
- * @param message Message to throw when type validation fails
  */
-export const number = (message?: string): NumberSchema =>
-  new NumberSchema(message);
+export const number = (): NumberSchema => new NumberSchema();

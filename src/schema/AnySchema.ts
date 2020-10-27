@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { InvalidTypes } from '../types';
 import { Schema } from './Schema';
 
 /**
@@ -9,8 +10,11 @@ export class AnySchema extends Schema<any> {
    * Creates a new Any Schema
    */
   public constructor() {
-    super('');
-    this._schemaType = 'any';
+    super(InvalidTypes.any);
+  }
+
+  public check() {
+    return true;
   }
 }
 

@@ -22,3 +22,27 @@ export interface IValidationOptions {
 export interface IValidationContext {
   property: string;
 }
+
+// @next types
+// eslint-disable-next-line no-shadow
+export enum InvalidTypes {
+  string = 'string',
+  number = 'number',
+  boolean = 'boolean',
+  array = 'array',
+  object = 'object',
+  any = 'any',
+
+  // null and undefined
+  null = 'null',
+  undefined = 'undefined',
+
+  unknown = 'unknown',
+
+  // new types
+  function = 'function',
+  promise = 'promise',
+  tuple = 'tuple',
+  enum = 'enum',
+  void = 'void',
+}

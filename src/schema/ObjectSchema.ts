@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Schema } from './Schema';
-import { defaultMessages } from '../defaultMaps';
+import { InvalidTypes } from '../types';
 
 type IShape<ShapeType extends object> = {
   [key in keyof ShapeType]?: Schema<ShapeType[key]>;
@@ -14,9 +13,16 @@ export class ObjectSchema<ObjectType extends object> extends Schema<
 > {
   private _shape: IShape<ObjectType> = {} as IShape<ObjectType>;
 
-  public constructor(message?: string) {
-    super(message || defaultMessages.object.type);
-    this._schemaType = 'object';
+  public constructor() {
+    super(InvalidTypes.object);
+  }
+
+  public check(value: unknown): boolean {
+    const shapeKeys = Object.keys(this._shape);
+    return (
+      typeof value === 'object' &&
+      Object.keys(value).every(key => shapeKeys.indexOf(key) > -1)
+    );
   }
 
   public get shape(): IShape<Object> {
@@ -61,6 +67,4 @@ export class ObjectSchema<ObjectType extends object> extends Schema<
  */
 export const object = <ObjectType extends object>(
   shape: IShape<ObjectType>,
-  message?: string,
-): ObjectSchema<ObjectType> =>
-  new ObjectSchema<ObjectType>(message).setShape(shape);
+): ObjectSchema<ObjectType> => new ObjectSchema<ObjectType>().setShape(shape);
