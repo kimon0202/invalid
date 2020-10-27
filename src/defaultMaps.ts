@@ -23,6 +23,7 @@ export const defaultNames = {
   minArray: 'min',
   maxArray: 'max',
   length: 'length',
+  array: 'array',
 };
 
 export const defaultMessages = {

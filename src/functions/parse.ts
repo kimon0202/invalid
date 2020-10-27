@@ -23,7 +23,9 @@ export const errors = async <SchemaType>(
 
     Object.keys(schema.shape).forEach(async key => {
       const innerSchema = schema.shape[key] as Schema<any>;
-      const valueToCheck: unknown = value[key];
+      const valueToCheck: unknown =
+        // eslint-disable-next-line no-nested-ternary
+        value === null ? null : value === undefined ? undefined : value[key];
 
       const innerErrors = await errors(innerSchema, valueToCheck, {
         ...options,
