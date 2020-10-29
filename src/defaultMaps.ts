@@ -56,7 +56,8 @@ export const defaultMessages = {
     type: 'This must be an object',
   },
   array: {
-    type: `This must be an array`,
+    type: (elementType: string): string =>
+      `This must be an ${elementType} array`,
     min: (min: number): string => `This must be at least ${min} items long`,
     max: (max: number): string => `This must be at most ${max} items long`,
     length: (value: number): string => `This array's length must be ${value}`,
@@ -71,5 +72,5 @@ export const defaultMessages = {
 
 export const defaultOptions: IValidationOptions = {
   path: 'root',
-  strict: false,
+  strict: true,
 };

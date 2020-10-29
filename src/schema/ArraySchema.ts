@@ -6,6 +6,10 @@ import { InvalidTypes } from '../types';
 // TODO: add type validation
 // TODO: add docs
 
+export interface IArrayTransformable<Type> {
+  array(): ArraySchema<Schema<Type>>;
+}
+
 /**
  * Array Schema
  * @template ArrayType Type of the schema array
@@ -58,6 +62,10 @@ export class ArraySchema<ArrayType extends Schema> extends Schema<
   public length(value: number, message?: string): this {
     this._properties.add(lengthFactory(value, message));
     return this;
+  }
+
+  public get elementType(): string {
+    return this.elementSchema.type;
   }
 }
 

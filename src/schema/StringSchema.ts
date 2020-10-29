@@ -1,5 +1,6 @@
 import { Schema } from './Schema';
 import { InvalidTypes } from '../types';
+import { ArraySchema, IArrayTransformable } from './ArraySchema';
 import {
   minLengthFactory,
   maxLengthFactory,
@@ -12,7 +13,9 @@ import {
 /**
  * String Schema
  */
-class StringSchema extends Schema<string> {
+class StringSchema
+  extends Schema<string>
+  implements IArrayTransformable<string> {
   /**
    * Creates a new String Schema
    */
@@ -22,6 +25,10 @@ class StringSchema extends Schema<string> {
 
   public check(value: unknown): boolean {
     return typeof value === 'string';
+  }
+
+  array(): ArraySchema<Schema<string>> {
+    return new ArraySchema(this);
   }
 
   /**

@@ -1,5 +1,6 @@
 import { Schema } from './Schema';
 import { InvalidTypes } from '../types';
+import { ArraySchema, IArrayTransformable } from './ArraySchema';
 import {
   greaterThanFactory,
   integerFactory,
@@ -13,7 +14,9 @@ import {
 /**
  * Number Schema
  */
-class NumberSchema extends Schema<number> {
+class NumberSchema
+  extends Schema<number>
+  implements IArrayTransformable<number> {
   /**
    * Creates a new Number Schema
    */
@@ -23,6 +26,10 @@ class NumberSchema extends Schema<number> {
 
   public check(value: unknown): boolean {
     return typeof value === 'number';
+  }
+
+  public array(): ArraySchema<Schema<number>> {
+    return new ArraySchema(this);
   }
 
   /**

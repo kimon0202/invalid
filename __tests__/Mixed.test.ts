@@ -71,7 +71,7 @@ describe('Mixed Schema API', () => {
     });
 
     describe('Array', () => {
-      const schema = array().required();
+      const schema = array(number()).required();
 
       it('should throw an exception (undefined)', async () =>
         expect(parse(schema, undefined)).rejects.toThrow());
@@ -170,7 +170,7 @@ describe('Mixed Schema API', () => {
     });
 
     describe('Array', () => {
-      const schema = array().notRequired(true);
+      const schema = array(number()).notRequired(true);
 
       it('should not throw an exception (undefined)', async () =>
         expect(parse(schema, undefined)).resolves.not.toThrow());
@@ -269,7 +269,7 @@ describe('Mixed Schema API', () => {
     });
 
     describe('Array', () => {
-      const schema = array().notRequired(false);
+      const schema = array(number()).notRequired(false);
 
       it('should not throw an exception (undefined)', async () =>
         expect(parse(schema, undefined)).resolves.not.toThrow());
