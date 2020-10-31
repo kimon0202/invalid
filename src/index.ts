@@ -14,3 +14,5 @@ export { ValidationError, ErrorGroup } from './ValidationError';
 export { parse } from './functions/parse';
 export { errors } from './functions/errors';
 export { validate } from './functions/validate';
+
+// TODO: enable function as messages
