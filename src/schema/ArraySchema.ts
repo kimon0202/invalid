@@ -2,26 +2,15 @@ import { Schema, Infer } from './Schema';
 import { minFactory, maxFactory, lengthFactory } from '../properties/array';
 import { InvalidTypes } from '../types';
 
-// TODO: add tests
-// TODO: add type validation
-// TODO: add docs
-
 export interface IArrayTransformable<Type> {
   array(): ArraySchema<Schema<Type>>;
 }
 
-/**
- * Array Schema
- * @template ArrayType Type of the schema array
- */
 export class ArraySchema<ArrayType extends Schema> extends Schema<
   Infer<ArrayType>[]
 > {
   private readonly elementSchema: ArrayType;
 
-  /**
-   * Creates a new Array Schema
-   */
   public constructor(element: ArrayType) {
     super(InvalidTypes.array);
     this.elementSchema = element;
@@ -71,8 +60,8 @@ export class ArraySchema<ArrayType extends Schema> extends Schema<
 
 /**
  * Creates a array schema object
- * @template ArrayType The array's schema type
+ * @template ElementSchema The schema that defines the array's elements shape.
  */
-export const array = <ArrayType extends Schema>(
-  element: ArrayType,
-): ArraySchema<ArrayType> => new ArraySchema<ArrayType>(element);
+export const array = <ElementSchema extends Schema>(
+  element: ElementSchema,
+): ArraySchema<ElementSchema> => new ArraySchema<ElementSchema>(element);

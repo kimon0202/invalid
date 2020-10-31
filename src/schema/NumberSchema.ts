@@ -11,15 +11,9 @@ import {
   positiveFactory,
 } from '../properties/number';
 
-/**
- * Number Schema
- */
 class NumberSchema
   extends Schema<number>
   implements IArrayTransformable<number> {
-  /**
-   * Creates a new Number Schema
-   */
   public constructor() {
     super(InvalidTypes.number);
   }
@@ -100,7 +94,4 @@ class NumberSchema
   }
 }
 
-/**
- * Creates a new numbe schema object
- */
 export const number = (): NumberSchema => new NumberSchema();

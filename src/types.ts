@@ -1,7 +1,5 @@
 import { ValidationError } from './ValidationError';
 
-import { Schema } from '..';
-
 export type PropertyMessage = string | ((...args: unknown[]) => string);
 
 export type TestFunction = (
@@ -36,10 +34,10 @@ export enum InvalidTypes {
   any = 'any',
 
   // null and undefined
-  null = 'null',
-  undefined = 'undefined',
+  // null = 'null',
+  // undefined = 'undefined',
 
-  unknown = 'unknown',
+  // unknown = 'unknown',
 
   // new types
   function = 'function',

@@ -1,7 +1,4 @@
 /* eslint-disable max-classes-per-file */
-/**
- * Validation Error
- */
 export class ValidationError {
   private readonly _message: string;
   private readonly _path: string;

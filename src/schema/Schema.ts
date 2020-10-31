@@ -16,10 +16,6 @@ export abstract class Schema<SchemaType = any> {
   protected readonly _schemaType: InvalidTypes;
   protected readonly _properties: Set<IProperty>;
 
-  /**
-   * Creates a new Schema of the given SchemaType
-   * @param message The message to throw when type validation fails
-   */
   public constructor(type: InvalidTypes) {
     this._properties = new Set();
     this._typeMessage = defaultMessages.string.type;
@@ -60,5 +56,9 @@ export abstract class Schema<SchemaType = any> {
   }
 
   // abstract methods
+  /**
+   * Checks if the value has the same type as this schema
+   * @param value Value to check
+   */
   public abstract check(value: unknown): boolean;
 }

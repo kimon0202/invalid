@@ -10,15 +10,9 @@ import {
   urlFactory,
 } from '../properties/string';
 
-/**
- * String Schema
- */
 class StringSchema
   extends Schema<string>
   implements IArrayTransformable<string> {
-  /**
-   * Creates a new String Schema
-   */
   public constructor() {
     super(InvalidTypes.string);
   }
@@ -89,7 +83,4 @@ class StringSchema
   }
 }
 
-/**
- * Creates a string schema object
- */
 export const string = (): StringSchema => new StringSchema();

@@ -8,6 +8,8 @@ export { array } from './schema/ArraySchema';
 // export { union } from './schema/UnionSchema';
 export { Schema } from './schema/Schema';
 
+export { ValidationError, ErrorGroup } from './ValidationError';
+
 export { parse } from './functions/parse';
 export { errors } from './functions/errors';
 export { validate } from './functions/validate';

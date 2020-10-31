@@ -5,6 +5,12 @@ import { ObjectSchema } from '../schema/ObjectSchema';
 import { has, isAny, spread, isArray } from '../utils/propertiesUtils';
 import { ValidationError } from '../ValidationError';
 
+/**
+ * Validates the given value against the given schema and returns all validation errors
+ * @param schema The schema to validate against
+ * @param value The value to check
+ * @param options Validation options
+ */
 export const errors = async <SchemaType>(
   schema: Schema<SchemaType>,
   value: unknown,
