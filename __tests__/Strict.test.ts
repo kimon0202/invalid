@@ -1,6 +1,8 @@
 import { parse, string, number } from '../src';
 import { defaultMessages } from '../src/defaultMaps';
 
+// TODO: add more strict mode tests
+
 describe('Strict Mode', () => {
   const strSchema = string();
   const numSchema = number();

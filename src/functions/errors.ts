@@ -42,7 +42,7 @@ export const errors = async <SchemaType>(
   if (schema instanceof ObjectSchema) {
     spread(schema).forEach(property => {
       const error = property.test(value, {
-        property: options.path || 'root',
+        property: options.path || '',
       });
 
       if (error) errorArray.push(error);
@@ -68,7 +68,7 @@ export const errors = async <SchemaType>(
 
   spread(schema).forEach(property => {
     const error = property.test(value, {
-      property: options.path || 'root',
+      property: options.path || '',
     });
 
     if (error) errorArray.push(error);

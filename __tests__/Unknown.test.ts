@@ -1,5 +1,6 @@
 import { unknown, parse } from '../src';
 import { ArraySchema } from '../src/schema/ArraySchema';
+import { InvalidTypes } from '../src/types';
 
 describe('Unknown Schema API', () => {
   const schema = unknown();
@@ -23,5 +24,6 @@ describe('Unknown Schema API', () => {
     const arr = unknown().array();
 
     expect(arr).toBeInstanceOf(ArraySchema);
+    expect(arr.elementType).toBe(InvalidTypes.unknown);
   });
 });

@@ -30,12 +30,10 @@ export class ValidationError {
 
 export class ErrorGroup extends Error {
   public constructor(errors: ValidationError[]) {
-    super(
-      `Errors happened while validating:\n${errors.map(
-        // eslint-disable-next-line prettier/prettier
-        err => `Error at ${err.path}: ${err.message}\n`
-      )}`,
-    );
-    this.stack = '';
+    const messages = errors
+      .map(err => `Error at ${err.path}: ${err.message}`)
+      .join('\n');
+
+    super(`Errors happened while validating:\n${messages}}`);
   }
 }

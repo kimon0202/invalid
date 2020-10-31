@@ -1,5 +1,6 @@
 import { any, parse } from '../src';
 import { ArraySchema } from '../src/schema/ArraySchema';
+import { InvalidTypes } from '../src/types';
 
 describe('Any Schema API', () => {
   const schema = any();
@@ -23,5 +24,6 @@ describe('Any Schema API', () => {
     const arr = any().array();
 
     expect(arr).toBeInstanceOf(ArraySchema);
+    expect(arr.elementType).toBe(InvalidTypes.any);
   });
 });
