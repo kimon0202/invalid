@@ -14,7 +14,7 @@ export const matchesFactory = (regex: RegExp, message?: string): IProperty => ({
       ? null
       : new ValidationError(
           message || defaultMessages.string.matches(regex),
-          context.property || '',
+          context.property,
         );
 
     return error;
@@ -47,7 +47,7 @@ export const maxLengthFactory = (
         ? null
         : new ValidationError(
             message || defaultMessages.string.max(maxValue),
-            context.property || '',
+            context.property,
           );
 
     return error;
@@ -65,7 +65,7 @@ export const minLengthFactory = (
         ? null
         : new ValidationError(
             message || defaultMessages.string.min(minValue),
-            context.property || '',
+            context.property,
           );
 
     return error;

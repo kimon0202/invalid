@@ -10,7 +10,7 @@ export const minFactory = (min: number, message?: string): IProperty => ({
         ? null
         : new ValidationError(
             message || defaultMessages.array.min(min),
-            context.property || '',
+            context.property,
           );
 
     return error;
@@ -25,7 +25,7 @@ export const maxFactory = (max: number, message?: string): IProperty => ({
         ? null
         : new ValidationError(
             message || defaultMessages.array.max(max),
-            context.property || '',
+            context.property,
           );
 
     return error;
@@ -40,7 +40,7 @@ export const lengthFactory = (length: number, message?: string): IProperty => ({
         ? null
         : new ValidationError(
             message || defaultMessages.array.length(length),
-            context.property || '',
+            context.property,
           );
 
     return error;

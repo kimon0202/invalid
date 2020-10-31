@@ -43,6 +43,18 @@ describe('String Schema API', () => {
       expect(parse(schema, 'not an uuid')).rejects.toThrow());
   });
 
+  describe('URL', () => {
+    const schema = string().url();
+
+    it('should not throw an error', async () =>
+      expect(
+        parse(schema, 'https://github.com/kimon0202/invalid'),
+      ).resolves.not.toThrow());
+
+    it('should throw an error', async () =>
+      expect(parse(schema, 'not an url')).rejects.toThrow());
+  });
+
   describe('Matches', () => {
     const schema = string().matches(/[aA]+b/);
 

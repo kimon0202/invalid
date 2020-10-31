@@ -10,7 +10,7 @@ export const requiredFactory = (message?: string): IProperty => ({
         ? null
         : new ValidationError(
             message || defaultMessages.mixed.required,
-            context.property || '',
+            context.property,
           );
 
     return error;
@@ -26,7 +26,7 @@ export const notRequiredFactory = (
     return !allowNull && value === null
       ? new ValidationError(
           message || defaultMessages.mixed.notRquiredNull,
-          context.property || '',
+          context.property,
         )
       : null;
   },

@@ -13,7 +13,7 @@ export const greaterThanFactory = (
         ? null
         : new ValidationError(
             message || defaultMessages.number.greaterThan(greaterThan),
-            context.property || '',
+            context.property,
           );
 
     return error;
@@ -31,7 +31,7 @@ export const lessThanFactory = (
         ? null
         : new ValidationError(
             message || defaultMessages.number.lessThan(lessThan),
-            context.property || '',
+            context.property,
           );
 
     return error;
@@ -46,7 +46,7 @@ export const minFactory = (min: number, message?: string): IProperty => ({
         ? null
         : new ValidationError(
             message || defaultMessages.number.min(min),
-            context.property || '',
+            context.property,
           );
 
     return error;
@@ -61,7 +61,7 @@ export const maxFactory = (max: number, message?: string): IProperty => ({
         ? null
         : new ValidationError(
             message || defaultMessages.number.max(max),
-            context.property || '',
+            context.property,
           );
 
     return error;
@@ -75,7 +75,7 @@ export const integerFactory = (message?: string): IProperty => ({
       ? null
       : new ValidationError(
           message || defaultMessages.number.integer,
-          context.property || '',
+          context.property,
         );
 
     return error;

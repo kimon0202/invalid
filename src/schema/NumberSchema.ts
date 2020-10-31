@@ -70,7 +70,7 @@ class NumberSchema
    * Ensures that a number is positve
    * @param message Message to throw when positive validation fails
    */
-  public positive(message = 'This must be a positive number'): NumberSchema {
+  public positive(message?: string): NumberSchema {
     this._properties.add(positiveFactory(message));
     return this;
   }
@@ -79,7 +79,7 @@ class NumberSchema
    * Ensures that a number is negative
    * @param message Message to throw when negative validation fails
    */
-  public negative(message = 'This must be a negative number'): NumberSchema {
+  public negative(message?: string): NumberSchema {
     this._properties.add(negativeFactory(message));
     return this;
   }
