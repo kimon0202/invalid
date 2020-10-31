@@ -2,12 +2,14 @@ import { InvalidTypes } from '../types';
 import { Schema } from './Schema';
 import { ArraySchema, IArrayTransformable } from './ArraySchema';
 
-export class AnySchema extends Schema<any> implements IArrayTransformable<any> {
+export class UnknownSchema
+  extends Schema<unknown>
+  implements IArrayTransformable<unknown> {
   public constructor() {
-    super(InvalidTypes.any);
+    super(InvalidTypes.unknown);
   }
 
-  public array(): ArraySchema<Schema<any>> {
+  public array(): ArraySchema<Schema<unknown>> {
     return new ArraySchema(this);
   }
 
@@ -16,4 +18,4 @@ export class AnySchema extends Schema<any> implements IArrayTransformable<any> {
   }
 }
 
-export const any = (): AnySchema => new AnySchema();
+export const unknown = (): UnknownSchema => new UnknownSchema();

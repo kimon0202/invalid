@@ -3,6 +3,9 @@ import { minFactory, maxFactory, lengthFactory } from '../properties/array';
 import { InvalidTypes } from '../types';
 
 export interface IArrayTransformable<Type> {
+  /**
+   * Returns a ArraySchema in which the element schema is defined by this schema.
+   */
   array(): ArraySchema<Schema<Type>>;
 }
 

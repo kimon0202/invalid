@@ -37,7 +37,7 @@ export enum InvalidTypes {
   // null = 'null',
   // undefined = 'undefined',
 
-  // unknown = 'unknown',
+  unknown = 'unknown',
 
   // new types
   function = 'function',

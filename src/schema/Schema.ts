@@ -3,6 +3,9 @@ import { InvalidTypes, IProperty } from '../types';
 import { requiredFactory, notRequiredFactory } from '../properties/mixed';
 import { defaultMessages } from '../defaultMaps';
 
+/**
+ * Infers the type of a schema.
+ */
 export type Infer<T extends Schema> = T['_type'];
 
 /**
@@ -16,10 +19,10 @@ export abstract class Schema<SchemaType = any> {
   protected readonly _schemaType: InvalidTypes;
   protected readonly _properties: Set<IProperty>;
 
-  public constructor(type: InvalidTypes) {
+  public constructor(type: string) {
     this._properties = new Set();
     this._typeMessage = defaultMessages.string.type;
-    this._schemaType = type;
+    this._schemaType = type as InvalidTypes;
   }
 
   /**
