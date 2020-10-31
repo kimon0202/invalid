@@ -2,7 +2,13 @@ import { Schema } from '..';
 
 import { defaultOptions, defaultNames, defaultMessages } from '../defaultMaps';
 import { ObjectSchema } from '../schema/ObjectSchema';
-import { has, isAny, spread, isArray } from '../utils/propertiesUtils';
+import {
+  has,
+  isAny,
+  spread,
+  isArray,
+  isUnknown,
+} from '../utils/propertiesUtils';
 import { ValidationError } from '../ValidationError';
 
 /**
@@ -22,7 +28,8 @@ export const errors = async <SchemaType>(
   if (
     options.strict &&
     !has(schema, defaultNames.notRequired) &&
-    !isAny(schema)
+    !isAny(schema) &&
+    !isUnknown(schema)
   ) {
     const error = new ValidationError(
       isArray(schema)
