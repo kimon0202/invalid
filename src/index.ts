@@ -9,6 +9,7 @@ export {
   IProperty,
   ITestResult,
   IValidationContext,
+  InvalidMessage,
 } from './properties/IProperty';
 
 export { ValidationError } from './errors/ValidationError';

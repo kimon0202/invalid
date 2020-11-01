@@ -83,9 +83,9 @@ The `ITestResult` type is equal to: `[boolean, ValidationError]`.
 Creating a property is simple:
 
 ```ts
-import { IProperty } from '@bauke2112/invalidjs';
+import { IProperty, InvalidMessage } from '@bauke2112/invalidjs';
 
-export const truthFactory = (message?: string): IProperty => ({
+export const truthFactory = (message?: InvalidMessage): IProperty => ({
   name: 'truth',
   test: (value, context) => {
     const isValid = !!value;
@@ -96,13 +96,20 @@ export const truthFactory = (message?: string): IProperty => ({
 });
 ```
 
+The `message` parameter can be either a string or a function with the following signature:
+```ts
+const myFunc = (context: IValidationContext): string => {
+  // ...your code here
+}
+```
+
 Using the schema created above, you can add property to the schema:
 
 ```ts
 export class LogicalSchema extends Schema<boolean> {
   // ... other stuff
 
-  public truth(message?: string): LogicalSchema {
+  public truth(message?: IvalidMessage): LogicalSchema {
     this._properties.add(truthFactory(message));
     return this;
   }
