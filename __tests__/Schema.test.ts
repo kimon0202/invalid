@@ -192,4 +192,15 @@ describe('Schema API', () => {
     expect(undef).toBe(true);
     expect(errors11).toHaveLength(0);
   });
+
+  it('should use a function as message', async () => {
+    const schema = any().notRequired(
+      false,
+      context => `Path: ${context.path} - ${JSON.stringify(context.property)}`,
+    );
+    const [isValid, errors] = await schema.validate(null);
+
+    expect(isValid).toBe(false);
+    expect(errors[0].message).toBe('Path:  - {"name":"notRequired"}');
+  });
 });

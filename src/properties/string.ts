@@ -1,5 +1,9 @@
 /* eslint-disable no-control-regex */
-import { IProperty, defaultNames, IValidationContext } from './IProperty';
+import {
+  defaultNames,
+  IValidationContext,
+  InvalidPropertyFactory,
+} from './IProperty';
 import { ValidationError } from '../errors/ValidationError';
 import { defaultMessages } from '../errors/defaultMessages';
 
@@ -7,67 +11,73 @@ const emailRegex = /^((([a-z]|\d|[!#$%&'*+-/=?^_`{|}~]|[\u00A0-\uD7FF\uF900-\uFD
 const urlRegex = /^((https?|ftp):)?\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!$&'()*+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!$&'()*+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!$&'()*+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!$&'()*+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!$&'()*+,;=]|:|@)|\/|\?)*)?$/i;
 const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
-export const matchesFactory = (regex: RegExp, message?: string): IProperty => ({
+export const matchesFactory: InvalidPropertyFactory = (
+  message,
+  regex: RegExp,
+) => ({
   name: defaultNames.matches,
   test: (value: string, context: IValidationContext) => {
     const isValid = regex.test(value);
+    const errorMessage =
+      (typeof message === 'function' ? message(context) : message) ||
+      defaultMessages.string.matches(regex);
+
     const error = isValid
       ? null
-      : new ValidationError(
-          message || defaultMessages.string.matches(regex),
-          context.path || '',
-        );
+      : new ValidationError(errorMessage, context.path || '');
 
     return [isValid, error];
   },
 });
 
-export const uuidFactory = (message?: string): IProperty => ({
-  ...matchesFactory(uuidRegex, message || defaultMessages.string.uuid),
+export const uuidFactory: InvalidPropertyFactory = message => ({
+  ...matchesFactory(message || defaultMessages.string.uuid, uuidRegex),
   name: defaultNames.uuid,
 });
 
-export const emailFactory = (message?: string): IProperty => ({
-  ...matchesFactory(emailRegex, message || defaultMessages.string.email),
+export const emailFactory: InvalidPropertyFactory = message => ({
+  ...matchesFactory(message || defaultMessages.string.email, emailRegex),
   name: defaultNames.email,
 });
 
-export const urlFactory = (message?: string): IProperty => ({
-  ...matchesFactory(urlRegex, message || defaultMessages.string.url),
+export const urlFactory: InvalidPropertyFactory = message => ({
+  ...matchesFactory(message || defaultMessages.string.url, urlRegex),
   name: defaultNames.url,
 });
 
-export const maxLengthFactory = (
+export const maxLengthFactory: InvalidPropertyFactory = (
+  message,
   maxValue: number,
-  message?: string,
-): IProperty => ({
+) => ({
   name: defaultNames.maxLength,
   test: (value: string, context: IValidationContext) => {
     const isValid = value.length <= maxValue;
+    const errorMessage =
+      (typeof message === 'function' ? message(context) : message) ||
+      defaultMessages.string.max(maxValue);
+
     const error = isValid
       ? null
-      : new ValidationError(
-          message || defaultMessages.string.max(maxValue),
-          context.path || '',
-        );
+      : new ValidationError(errorMessage, context.path || '');
 
     return [isValid, error];
   },
 });
 
-export const minLengthFactory = (
+export const minLengthFactory: InvalidPropertyFactory = (
+  message,
   minValue: number,
-  message?: string,
-): IProperty => ({
+) => ({
   name: defaultNames.minLength,
   test: (value: string, context: IValidationContext) => {
     const isValid = value.length >= minValue;
+    const errorMessage =
+      (typeof message === 'function' ? message(context) : message) ||
+      defaultMessages.string.min(minValue);
+
     const error = isValid
       ? null
-      : new ValidationError(
-          message || defaultMessages.string.min(minValue),
-          context.path || '',
-        );
+      : new ValidationError(errorMessage, context.path || '');
 
     return [isValid, error];
   },

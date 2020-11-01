@@ -2,7 +2,7 @@ import { minFactory, maxFactory, lengthFactory } from '../properties/array';
 import { Schema, IValidationResult, IValidationOptions } from './Schema';
 import { defaultMessages } from '../errors/defaultMessages';
 import { ValidationError } from '../errors/ValidationError';
-import { IValidationContext } from '../properties/IProperty';
+import { IValidationContext, InvalidMessage } from '../properties/IProperty';
 
 // TODO: add tests
 // TODO: add type validation
@@ -25,8 +25,8 @@ class ArraySchema<ArrayType = any> extends Schema<ArrayType[]> {
    * @param min Minimum array length
    * @param message Message to throw when min length validation fails
    */
-  public min(min: number, message?: string): this {
-    this._properties.add(minFactory(min, message));
+  public min(min: number, message?: InvalidMessage): this {
+    this._properties.add(minFactory(message, min));
     return this;
   }
 
@@ -35,8 +35,8 @@ class ArraySchema<ArrayType = any> extends Schema<ArrayType[]> {
    * @param max Maximum array length
    * @param message Message to throw when max length validation fails
    */
-  public max(max: number, message?: string): this {
-    this._properties.add(maxFactory(max, message));
+  public max(max: number, message?: InvalidMessage): this {
+    this._properties.add(maxFactory(message, max));
     return this;
   }
 
@@ -45,8 +45,8 @@ class ArraySchema<ArrayType = any> extends Schema<ArrayType[]> {
    * @param value Array's length value
    * @param message Message to throw when length validation fails
    */
-  public length(value: number, message?: string): this {
-    this._properties.add(lengthFactory(value, message));
+  public length(value: number, message?: InvalidMessage): this {
+    this._properties.add(lengthFactory(message, value));
     return this;
   }
 

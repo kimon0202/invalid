@@ -1,47 +1,53 @@
-import { IProperty, defaultNames } from './IProperty';
+import { InvalidPropertyFactory, defaultNames } from './IProperty';
 import { ValidationError } from '../errors/ValidationError';
 import { defaultMessages } from '../errors/defaultMessages';
 
-export const minFactory = (min: number, message?: string): IProperty => ({
+export const minFactory: InvalidPropertyFactory = (message, min: number) => ({
   name: defaultNames.minArray,
   test: (value, context) => {
     const isValid = (value as Array<any>).length >= min;
+    const errorMessage =
+      (typeof message === 'function' ? message(context) : message) ||
+      defaultMessages.array.min(min);
+
     const error = isValid
       ? null
-      : new ValidationError(
-          message || defaultMessages.array.min(min),
-          context.path || '',
-        );
+      : new ValidationError(errorMessage, context.path || '');
 
     return [isValid, error];
   },
 });
 
-export const maxFactory = (max: number, message?: string): IProperty => ({
+export const maxFactory: InvalidPropertyFactory = (message, max: number) => ({
   name: defaultNames.maxArray,
   test: (value, context) => {
     const isValid = (value as Array<any>).length <= max;
+    const errorMessage =
+      (typeof message === 'function' ? message(context) : message) ||
+      defaultMessages.array.max(max);
+
     const error = isValid
       ? null
-      : new ValidationError(
-          message || defaultMessages.array.max(max),
-          context.path || '',
-        );
+      : new ValidationError(errorMessage, context.path || '');
 
     return [isValid, error];
   },
 });
 
-export const lengthFactory = (length: number, message?: string): IProperty => ({
+export const lengthFactory: InvalidPropertyFactory = (
+  message,
+  length: number,
+) => ({
   name: defaultNames.length,
   test: (value, context) => {
     const isValid = (value as Array<any>).length === length;
+    const errorMessage =
+      (typeof message === 'function' ? message(context) : message) ||
+      defaultMessages.array.length(length);
+
     const error = isValid
       ? null
-      : new ValidationError(
-          message || defaultMessages.array.length(length),
-          context.path || '',
-        );
+      : new ValidationError(errorMessage, context.path || '');
 
     return [isValid, error];
   },

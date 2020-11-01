@@ -1,6 +1,6 @@
 import { Schema, IValidationResult, IValidationOptions } from './Schema';
 import { ValidationError } from '../errors/ValidationError';
-import { IValidationContext } from '../properties/IProperty';
+import { IValidationContext, InvalidMessage } from '../properties/IProperty';
 import { defaultMessages } from '../errors/defaultMessages';
 import {
   minLengthFactory,
@@ -27,8 +27,8 @@ class StringSchema extends Schema<string> {
    * @param min Minimum value length
    * @param message Message to throw when min length validation fails
    */
-  public min(min: number, message?: string): StringSchema {
-    this._properties.add(minLengthFactory(min, message));
+  public min(min: number, message?: InvalidMessage): StringSchema {
+    this._properties.add(minLengthFactory(message, min));
     return this;
   }
 
@@ -37,8 +37,8 @@ class StringSchema extends Schema<string> {
    * @param max Maximum value length
    * @param message Message to throw when max length validation fails
    */
-  public max(max: number, message?: string): StringSchema {
-    this._properties.add(maxLengthFactory(max, message));
+  public max(max: number, message?: InvalidMessage): StringSchema {
+    this._properties.add(maxLengthFactory(message, max));
     return this;
   }
 
@@ -46,7 +46,7 @@ class StringSchema extends Schema<string> {
    * Ensures that the string must be a valid email address
    * @param message Message to throw when email validation failures
    */
-  public email(message?: string): StringSchema {
+  public email(message?: InvalidMessage): StringSchema {
     this._properties.add(emailFactory(message));
     return this;
   }
@@ -55,7 +55,7 @@ class StringSchema extends Schema<string> {
    * Ensures that the string must be an valid UUID
    * @param message Message to throw when UUID validation fails
    */
-  public uuid(message?: string): StringSchema {
+  public uuid(message?: InvalidMessage): StringSchema {
     this._properties.add(uuidFactory(message));
     return this;
   }
@@ -64,7 +64,7 @@ class StringSchema extends Schema<string> {
    * Ensures that the string must be an valid URL address
    * @param message Message to throw when URL validation fails
    */
-  public url(message?: string): StringSchema {
+  public url(message?: InvalidMessage): StringSchema {
     this._properties.add(urlFactory(message));
     return this;
   }
@@ -74,8 +74,8 @@ class StringSchema extends Schema<string> {
    * @param regex Regex to test string against
    * @param message Message to throw when regex matches validation fails
    */
-  public matches(regex: RegExp, message?: string): StringSchema {
-    this._properties.add(matchesFactory(regex, message));
+  public matches(regex: RegExp, message?: InvalidMessage): StringSchema {
+    this._properties.add(matchesFactory(message, regex));
     return this;
   }
 

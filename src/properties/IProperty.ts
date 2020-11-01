@@ -2,6 +2,13 @@ import { ValidationError } from '../errors/ValidationError';
 
 export type ITestResult = [boolean, ValidationError];
 
+export type InvalidMessage = string | ((context: IValidationContext) => string);
+
+export type InvalidPropertyFactory = (
+  message?: InvalidMessage,
+  ...args: unknown[]
+) => IProperty;
+
 export interface IValidationContext {
   property: IProperty;
   path?: string;
