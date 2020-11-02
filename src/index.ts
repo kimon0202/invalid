@@ -6,7 +6,7 @@ export { boolean } from './schema/BooleanSchema';
 export { any } from './schema/AnySchema';
 export { unknown } from './schema/UnknownSchema';
 export { array, IArrayTransformable } from './schema/ArraySchema';
-// export { union } from './schema/UnionSchema';
+export { union } from './schema/UnionSchema';
 export { Schema, Infer } from './schema/Schema';
 
 export { ValidationError, ErrorGroup } from './ValidationError';

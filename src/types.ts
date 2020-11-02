@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import { ValidationError } from './ValidationError';
 
 export type InvalidMessage = string | ((context: IValidationContext) => string);
