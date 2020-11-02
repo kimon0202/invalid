@@ -39,7 +39,7 @@ export abstract class Schema<SchemaType = any> {
    * @param allowNull Allows the value to be null
    * @param message Message to throw if not required validation fails (this validation can only fail if allowNull is true)
    */
-  public notRequired(allowNull: boolean, message?: InvalidMessage): this {
+  public optional(allowNull: boolean, message?: InvalidMessage): this {
     this._properties.add(notRequiredFactory(allowNull, message));
     return this;
   }
