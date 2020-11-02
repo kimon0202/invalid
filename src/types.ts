@@ -19,6 +19,8 @@ export interface IValidationOptions {
 
 export interface IValidationContext {
   property: string;
+  expected: unknown;
+  received: unknown;
 }
 
 // @next types
@@ -32,8 +34,8 @@ export enum InvalidTypes {
   any = 'any',
 
   // null and undefined
-  // null = 'null',
-  // undefined = 'undefined',
+  null = 'null',
+  undefined = 'undefined',
 
   unknown = 'unknown',
 
@@ -42,6 +44,10 @@ export enum InvalidTypes {
   promise = 'promise',
   tuple = 'tuple',
   enum = 'enum',
-  void = 'void',
+  // void = 'void',
   union = 'union',
+  date = 'date',
+  symbol = 'symbol',
+  nan = 'nan',
+  bigint = 'bigint',
 }

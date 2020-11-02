@@ -10,6 +10,7 @@ import {
   isUnknown,
 } from '../utils/propertiesUtils';
 import { ValidationError } from '../ValidationError';
+import { type } from '../utils/contextUtils';
 
 /**
  * Validates the given value against the given schema and returns all validation errors
@@ -44,6 +45,8 @@ export const errors = async <SchemaType>(
     spread(schema).forEach(property => {
       const error = property.test(value, {
         property: options.path,
+        expected: schema.type,
+        received: type(value),
       });
 
       if (error) errorArray.push(error);
@@ -70,6 +73,8 @@ export const errors = async <SchemaType>(
   spread(schema).forEach(property => {
     const error = property.test(value, {
       property: options.path,
+      expected: schema.type,
+      received: type(value),
     });
 
     if (error) errorArray.push(error);
