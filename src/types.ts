@@ -1,13 +1,11 @@
 import { ValidationError } from './ValidationError';
 
-export type PropertyMessage = string | ((...args: unknown[]) => string);
+export type InvalidMessage = string | ((context: IValidationContext) => string);
 
 export type TestFunction = (
   value: Readonly<unknown>,
   context: IValidationContext,
 ) => ValidationError;
-
-export type PropertyFactory = (...args: unknown[]) => IProperty;
 
 export interface IProperty {
   name: string;

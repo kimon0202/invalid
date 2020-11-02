@@ -1,5 +1,5 @@
 import { Schema } from './Schema';
-import { InvalidTypes } from '../types';
+import { InvalidTypes, InvalidMessage } from '../types';
 import { ArraySchema, IArrayTransformable } from './ArraySchema';
 import {
   greaterThanFactory,
@@ -31,7 +31,7 @@ class NumberSchema
    * @param min Minimum value
    * @param message Message to throw when min value validation failures
    */
-  public min(min: number, message?: string): NumberSchema {
+  public min(min: number, message?: InvalidMessage): NumberSchema {
     this._properties.add(minFactory(min, message));
     return this;
   }
@@ -41,7 +41,7 @@ class NumberSchema
    * @param max Maximum value
    * @param message Message to throw when max value validation failures
    */
-  public max(max: number, message?: string): NumberSchema {
+  public max(max: number, message?: InvalidMessage): NumberSchema {
     this._properties.add(maxFactory(max, message));
     return this;
   }
@@ -51,7 +51,7 @@ class NumberSchema
    * @param value Value that the number must be less than
    * @param message Message to throw when less than validation fails
    */
-  public lessThan(value: number, message?: string): NumberSchema {
+  public lessThan(value: number, message?: InvalidMessage): NumberSchema {
     this._properties.add(lessThanFactory(value, message));
     return this;
   }
@@ -61,7 +61,7 @@ class NumberSchema
    * @param value Value that the number must be greater than
    * @param message Message to throw when greater than validation fails
    */
-  public greaterThan(value: number, message?: string): NumberSchema {
+  public greaterThan(value: number, message?: InvalidMessage): NumberSchema {
     this._properties.add(greaterThanFactory(value, message));
     return this;
   }
@@ -70,7 +70,7 @@ class NumberSchema
    * Ensures that a number is positve
    * @param message Message to throw when positive validation fails
    */
-  public positive(message?: string): NumberSchema {
+  public positive(message?: InvalidMessage): NumberSchema {
     this._properties.add(positiveFactory(message));
     return this;
   }
@@ -79,7 +79,7 @@ class NumberSchema
    * Ensures that a number is negative
    * @param message Message to throw when negative validation fails
    */
-  public negative(message?: string): NumberSchema {
+  public negative(message?: InvalidMessage): NumberSchema {
     this._properties.add(negativeFactory(message));
     return this;
   }
@@ -88,7 +88,7 @@ class NumberSchema
    * Ensures that a number is an integer
    * @param message Message to throw when integer validation fails
    */
-  public integer(message?: string): NumberSchema {
+  public integer(message?: InvalidMessage): NumberSchema {
     this._properties.add(integerFactory(message));
     return this;
   }

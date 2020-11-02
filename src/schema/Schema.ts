@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { InvalidTypes, IProperty } from '../types';
+import { InvalidTypes, IProperty, InvalidMessage } from '../types';
 import { requiredFactory, notRequiredFactory } from '../properties/mixed';
 import { defaultMessages } from '../defaultMaps';
 
@@ -29,7 +29,7 @@ export abstract class Schema<SchemaType = any> {
    * Marks the schema as required (null and undefined values fail)
    * @param message Message to throw when required validation fails
    */
-  public required(message?: string): this {
+  public required(message?: InvalidMessage): this {
     this._properties.add(requiredFactory(message));
     return this;
   }
@@ -39,7 +39,7 @@ export abstract class Schema<SchemaType = any> {
    * @param allowNull Allows the value to be null
    * @param message Message to throw if not required validation fails (this validation can only fail if allowNull is true)
    */
-  public notRequired(allowNull: boolean, message?: string): this {
+  public notRequired(allowNull: boolean, message?: InvalidMessage): this {
     this._properties.add(notRequiredFactory(allowNull, message));
     return this;
   }

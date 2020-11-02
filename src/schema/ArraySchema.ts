@@ -1,6 +1,6 @@
 import { Schema, Infer } from './Schema';
 import { minFactory, maxFactory, lengthFactory } from '../properties/array';
-import { InvalidTypes } from '../types';
+import { InvalidTypes, InvalidMessage } from '../types';
 
 export interface IArrayTransformable<Type> {
   /**
@@ -31,7 +31,7 @@ export class ArraySchema<ArrayType extends Schema> extends Schema<
    * @param min Minimum array length
    * @param message Message to throw when min length validation fails
    */
-  public min(min: number, message?: string): this {
+  public min(min: number, message?: InvalidMessage): this {
     this._properties.add(minFactory(min, message));
     return this;
   }
@@ -41,7 +41,7 @@ export class ArraySchema<ArrayType extends Schema> extends Schema<
    * @param max Maximum array length
    * @param message Message to throw when max length validation fails
    */
-  public max(max: number, message?: string): this {
+  public max(max: number, message?: InvalidMessage): this {
     this._properties.add(maxFactory(max, message));
     return this;
   }
@@ -51,7 +51,7 @@ export class ArraySchema<ArrayType extends Schema> extends Schema<
    * @param value Array's length value
    * @param message Message to throw when length validation fails
    */
-  public length(value: number, message?: string): this {
+  public length(value: number, message?: InvalidMessage): this {
     this._properties.add(lengthFactory(value, message));
     return this;
   }

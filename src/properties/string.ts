@@ -1,5 +1,6 @@
 /* eslint-disable no-control-regex */
-import { IProperty } from '../types';
+import { getMessage } from '../utils/messageUtils';
+import { InvalidMessage, IProperty } from '../types';
 import { ValidationError } from '../ValidationError';
 import { defaultNames, defaultMessages } from '../defaultMaps';
 
@@ -7,48 +8,51 @@ const emailRegex = /^((([a-z]|\d|[!#$%&'*+-/=?^_`{|}~]|[\u00A0-\uD7FF\uF900-\uFD
 const urlRegex = /^((https?|ftp):)?\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!$&'()*+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!$&'()*+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!$&'()*+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!$&'()*+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!$&'()*+,;=]|:|@)|\/|\?)*)?$/i;
 const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
-export const matchesFactory = (regex: RegExp, message?: string): IProperty => ({
+export const matchesFactory = (
+  regex: RegExp,
+  message?: InvalidMessage,
+): IProperty => ({
   name: defaultNames.matches,
   test: (value: string, context) => {
+    const errorMessage =
+      getMessage(message, context) || defaultMessages.string.matches(regex);
+
     const error = regex.test(value)
       ? null
-      : new ValidationError(
-          message || defaultMessages.string.matches(regex),
-          context.property,
-        );
+      : new ValidationError(errorMessage, context.property);
 
     return error;
   },
 });
 
-export const uuidFactory = (message?: string): IProperty => ({
+export const uuidFactory = (message?: InvalidMessage): IProperty => ({
   ...matchesFactory(uuidRegex, message || defaultMessages.string.uuid),
   name: defaultNames.uuid,
 });
 
-export const emailFactory = (message?: string): IProperty => ({
+export const emailFactory = (message?: InvalidMessage): IProperty => ({
   ...matchesFactory(emailRegex, message || defaultMessages.string.email),
   name: defaultNames.email,
 });
 
-export const urlFactory = (message?: string): IProperty => ({
+export const urlFactory = (message?: InvalidMessage): IProperty => ({
   ...matchesFactory(urlRegex, message || defaultMessages.string.url),
   name: defaultNames.url,
 });
 
 export const maxLengthFactory = (
   maxValue: number,
-  message?: string,
+  message?: InvalidMessage,
 ): IProperty => ({
   name: defaultNames.maxLength,
   test: (value: string, context) => {
+    const errorMessage =
+      getMessage(message, context) || defaultMessages.string.max(maxValue);
+
     const error =
       value.length <= maxValue
         ? null
-        : new ValidationError(
-            message || defaultMessages.string.max(maxValue),
-            context.property,
-          );
+        : new ValidationError(errorMessage, context.property);
 
     return error;
   },
@@ -56,17 +60,17 @@ export const maxLengthFactory = (
 
 export const minLengthFactory = (
   minValue: number,
-  message?: string,
+  message?: InvalidMessage,
 ): IProperty => ({
   name: defaultNames.minLength,
   test: (value: string, context) => {
+    const errorMessage =
+      getMessage(message, context) || defaultMessages.string.min(minValue);
+
     const error =
       value.length >= minValue
         ? null
-        : new ValidationError(
-            message || defaultMessages.string.min(minValue),
-            context.property,
-          );
+        : new ValidationError(errorMessage, context.property);
 
     return error;
   },

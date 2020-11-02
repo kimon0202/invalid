@@ -1,20 +1,22 @@
-import { IProperty } from '../types';
+import { IProperty, InvalidMessage } from '../types';
 import { ValidationError } from '../ValidationError';
 import { defaultNames, defaultMessages } from '../defaultMaps';
+import { getMessage } from '../utils/messageUtils';
 
 export const greaterThanFactory = (
   greaterThan: number,
-  message?: string,
+  message?: InvalidMessage,
 ): IProperty => ({
   name: defaultNames.greaterThan,
   test: (value: number, context) => {
+    const errorMessage =
+      getMessage(message, context) ||
+      defaultMessages.number.greaterThan(greaterThan);
+
     const error =
       value > greaterThan
         ? null
-        : new ValidationError(
-            message || defaultMessages.number.greaterThan(greaterThan),
-            context.property,
-          );
+        : new ValidationError(errorMessage, context.property);
 
     return error;
   },
@@ -22,72 +24,74 @@ export const greaterThanFactory = (
 
 export const lessThanFactory = (
   lessThan: number,
-  message?: string,
+  message?: InvalidMessage,
 ): IProperty => ({
   name: defaultNames.lessThan,
   test: (value: number, context) => {
+    const errorMessage =
+      getMessage(message, context) || defaultMessages.number.lessThan(lessThan);
+
     const error =
       value < lessThan
         ? null
-        : new ValidationError(
-            message || defaultMessages.number.lessThan(lessThan),
-            context.property,
-          );
+        : new ValidationError(errorMessage, context.property);
 
     return error;
   },
 });
 
-export const minFactory = (min: number, message?: string): IProperty => ({
+export const minFactory = (
+  min: number,
+  message?: InvalidMessage,
+): IProperty => ({
   name: defaultNames.min,
   test: (value: number, context) => {
+    const errorMessage =
+      getMessage(message, context) || defaultMessages.number.min(min);
+
     const error =
-      value >= min
-        ? null
-        : new ValidationError(
-            message || defaultMessages.number.min(min),
-            context.property,
-          );
+      value >= min ? null : new ValidationError(errorMessage, context.property);
 
     return error;
   },
 });
 
-export const maxFactory = (max: number, message?: string): IProperty => ({
+export const maxFactory = (
+  max: number,
+  message?: InvalidMessage,
+): IProperty => ({
   name: defaultNames.max,
   test: (value: number, context) => {
+    const errorMessage =
+      getMessage(message, context) || defaultMessages.number.max(max);
+
     const error =
-      value <= max
-        ? null
-        : new ValidationError(
-            message || defaultMessages.number.max(max),
-            context.property,
-          );
+      value <= max ? null : new ValidationError(errorMessage, context.property);
 
     return error;
   },
 });
 
-export const integerFactory = (message?: string): IProperty => ({
+export const integerFactory = (message?: InvalidMessage): IProperty => ({
   name: defaultNames.integer,
   test: (value: number, context) => {
+    const errorMessage =
+      getMessage(message, context) || defaultMessages.number.integer;
+
     const error = Number.isInteger(value)
       ? null
-      : new ValidationError(
-          message || defaultMessages.number.integer,
-          context.property,
-        );
+      : new ValidationError(errorMessage, context.property);
 
     return error;
   },
 });
 
-export const positiveFactory = (message?: string): IProperty => ({
+export const positiveFactory = (message?: InvalidMessage): IProperty => ({
   ...greaterThanFactory(0, message || defaultMessages.number.positive),
   name: defaultNames.positive,
 });
 
-export const negativeFactory = (message?: string): IProperty => ({
+export const negativeFactory = (message?: InvalidMessage): IProperty => ({
   ...lessThanFactory(0, message || defaultMessages.number.negative),
   name: defaultNames.negative,
 });

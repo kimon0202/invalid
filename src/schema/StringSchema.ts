@@ -1,5 +1,5 @@
 import { Schema } from './Schema';
-import { InvalidTypes } from '../types';
+import { InvalidTypes, InvalidMessage } from '../types';
 import { ArraySchema, IArrayTransformable } from './ArraySchema';
 import {
   minLengthFactory,
@@ -30,7 +30,7 @@ class StringSchema
    * @param min Minimum value length
    * @param message Message to throw when min length validation fails
    */
-  public min(min: number, message?: string): StringSchema {
+  public min(min: number, message?: InvalidMessage): StringSchema {
     this._properties.add(minLengthFactory(min, message));
     return this;
   }
@@ -40,7 +40,7 @@ class StringSchema
    * @param max Maximum value length
    * @param message Message to throw when max length validation fails
    */
-  public max(max: number, message?: string): StringSchema {
+  public max(max: number, message?: InvalidMessage): StringSchema {
     this._properties.add(maxLengthFactory(max, message));
     return this;
   }
@@ -49,7 +49,7 @@ class StringSchema
    * Ensures that the string must be a valid email address
    * @param message Message to throw when email validation failures
    */
-  public email(message?: string): StringSchema {
+  public email(message?: InvalidMessage): StringSchema {
     this._properties.add(emailFactory(message));
     return this;
   }
@@ -58,7 +58,7 @@ class StringSchema
    * Ensures that the string must be an valid UUID
    * @param message Message to throw when UUID validation fails
    */
-  public uuid(message?: string): StringSchema {
+  public uuid(message?: InvalidMessage): StringSchema {
     this._properties.add(uuidFactory(message));
     return this;
   }
@@ -67,7 +67,7 @@ class StringSchema
    * Ensures that the string must be an valid URL address
    * @param message Message to throw when URL validation fails
    */
-  public url(message?: string): StringSchema {
+  public url(message?: InvalidMessage): StringSchema {
     this._properties.add(urlFactory(message));
     return this;
   }
@@ -77,7 +77,7 @@ class StringSchema
    * @param regex Regex to test string against
    * @param message Message to throw when regex matches validation fails
    */
-  public matches(regex: RegExp, message?: string): StringSchema {
+  public matches(regex: RegExp, message?: InvalidMessage): StringSchema {
     this._properties.add(matchesFactory(regex, message));
     return this;
   }
