@@ -71,6 +71,6 @@ export const defaultMessages = {
 };
 
 export const defaultOptions: IValidationOptions = {
-  path: 'root',
+  path: '',
   strict: true,
 };

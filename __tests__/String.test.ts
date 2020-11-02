@@ -1,4 +1,4 @@
-import { string, parse } from '../src';
+import { string, parse, validate } from '../src';
 
 describe('String Schema API', () => {
   describe('Minimum length', () => {
@@ -63,5 +63,27 @@ describe('String Schema API', () => {
 
     it('should throw an error', async () =>
       expect(parse(schema, 'not valid')).rejects.toThrow());
+  });
+
+  describe('Validate and get errors', () => {
+    const schema = string().min(
+      5,
+      context => `Custom Message: ${context.property}`,
+    );
+
+    it('should return no errors', async () => {
+      const [value, errors] = await validate(schema, 'hellooo');
+
+      expect(value).toBe('hellooo');
+      expect(errors).toHaveLength(0);
+    });
+
+    it('should return an error with a custom message', async () => {
+      const [value, errors] = await validate(schema, 'not');
+
+      expect(value).toBeNull();
+      expect(errors).toHaveLength(1);
+      expect(errors[0].message).toBe('Custom Message: ');
+    });
   });
 });

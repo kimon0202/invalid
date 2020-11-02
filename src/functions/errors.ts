@@ -35,6 +35,7 @@ export const errors = async <SchemaType>(
       isArray(schema)
         ? defaultMessages[schema.type].type(schema.elementType)
         : defaultMessages[schema.type].type,
+      options.path,
     );
     if (!schema.check(value)) errorArray.push(error);
   }
@@ -42,7 +43,7 @@ export const errors = async <SchemaType>(
   if (schema instanceof ObjectSchema) {
     spread(schema).forEach(property => {
       const error = property.test(value, {
-        property: options.path || '',
+        property: options.path,
       });
 
       if (error) errorArray.push(error);
@@ -68,7 +69,7 @@ export const errors = async <SchemaType>(
 
   spread(schema).forEach(property => {
     const error = property.test(value, {
-      property: options.path || '',
+      property: options.path,
     });
 
     if (error) errorArray.push(error);
