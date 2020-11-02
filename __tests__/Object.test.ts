@@ -49,4 +49,17 @@ describe('Object Schema API', () => {
     expect(paths).toContain('profile.social.twitter');
     expect(paths).toContain('profile.social.github');
   });
+
+  // eslint-disable-next-line jest/no-commented-out-tests
+  // it('should merge', async () => {
+  //   const a = object({
+  //     name: string(),
+  //   });
+
+  //   const b = object({
+  //     age: number(),
+  //   });
+
+  //   const final = merge(a, b);
+  // });
 });

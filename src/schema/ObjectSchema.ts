@@ -4,7 +4,7 @@ import { InvalidTypes } from '../types';
 import { ArraySchema, IArrayTransformable } from './ArraySchema';
 
 type IShape<ShapeType extends object> = {
-  [key in keyof ShapeType]?: Schema<ShapeType[key]>;
+  [key in keyof ShapeType]: Schema<ShapeType[key]>;
 };
 
 export class ObjectSchema<ObjectType extends object>

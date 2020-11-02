@@ -7,6 +7,8 @@ export { any } from './schema/AnySchema';
 export { unknown } from './schema/UnknownSchema';
 export { array, IArrayTransformable } from './schema/ArraySchema';
 export { union } from './schema/UnionSchema';
+// export { n } from './schema/Null';
+// export { undef } from './schema/Undefined';
 export { Schema, Infer } from './schema/Schema';
 
 export { ValidationError, ErrorGroup } from './ValidationError';
