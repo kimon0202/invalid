@@ -19,7 +19,7 @@ describe('Object Schema API', () => {
     const s = object({
       name: string().required(),
       profile: object({
-        bio: string().notRequired(false),
+        bio: string().optional(false),
         age: number().positive(),
         social: object({
           twitter: string().required(),

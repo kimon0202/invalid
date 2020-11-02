@@ -100,9 +100,9 @@ describe('Mixed Schema API', () => {
     });
   });
 
-  describe('Not Required (allowNull)', () => {
+  describe('Optional (allowNull)', () => {
     describe('String', () => {
-      const schema = string().notRequired(true);
+      const schema = string().optional(true);
 
       it('should not throw an exception (undefined)', async () =>
         expect(parse(schema, undefined)).resolves.not.toThrow());
@@ -115,7 +115,7 @@ describe('Mixed Schema API', () => {
     });
 
     describe('Number', () => {
-      const schema = number().notRequired(true);
+      const schema = number().optional(true);
 
       it('should not throw an exception (undefined)', async () =>
         expect(parse(schema, undefined)).resolves.not.toThrow());
@@ -128,7 +128,7 @@ describe('Mixed Schema API', () => {
     });
 
     describe('Boolean', () => {
-      const schema = boolean().notRequired(true);
+      const schema = boolean().optional(true);
 
       it('should not throw an exception (undefined)', async () =>
         expect(parse(schema, undefined)).resolves.not.toThrow());
@@ -145,8 +145,8 @@ describe('Mixed Schema API', () => {
 
     describe('Object', () => {
       const schema = object({
-        str: string().notRequired(true),
-      }).notRequired(true);
+        str: string().optional(true),
+      }).optional(true);
 
       it('should not throw an exception (undefined)', async () =>
         expect(parse(schema, undefined)).resolves.not.toThrow());
@@ -170,7 +170,7 @@ describe('Mixed Schema API', () => {
     });
 
     describe('Array', () => {
-      const schema = array(number()).notRequired(true);
+      const schema = array(number()).optional(true);
 
       it('should not throw an exception (undefined)', async () =>
         expect(parse(schema, undefined)).resolves.not.toThrow());
@@ -186,7 +186,7 @@ describe('Mixed Schema API', () => {
     });
 
     describe('Any', () => {
-      const schema = any().notRequired(true);
+      const schema = any().optional(true);
 
       it('should not throw an exception (undefined)', async () =>
         expect(parse(schema, undefined)).resolves.not.toThrow());
@@ -199,9 +199,9 @@ describe('Mixed Schema API', () => {
     });
   });
 
-  describe('Not Required (!allowNull)', () => {
+  describe('Optional (!allowNull)', () => {
     describe('String', () => {
-      const schema = string().notRequired(false);
+      const schema = string().optional(false);
 
       it('should not throw an exception (undefined)', async () =>
         expect(parse(schema, undefined)).resolves.not.toThrow());
@@ -214,7 +214,7 @@ describe('Mixed Schema API', () => {
     });
 
     describe('Number', () => {
-      const schema = number().notRequired(false);
+      const schema = number().optional(false);
 
       it('should not throw an exception (undefined)', async () =>
         expect(parse(schema, undefined)).resolves.not.toThrow());
@@ -227,7 +227,7 @@ describe('Mixed Schema API', () => {
     });
 
     describe('Boolean', () => {
-      const schema = boolean().notRequired(false);
+      const schema = boolean().optional(false);
 
       it('should not throw an exception (undefined)', async () =>
         expect(parse(schema, undefined)).resolves.not.toThrow());
@@ -244,8 +244,8 @@ describe('Mixed Schema API', () => {
 
     describe('Object', () => {
       const schema = object({
-        str: string().notRequired(false),
-      }).notRequired(false);
+        str: string().optional(false),
+      }).optional(false);
 
       it('should not throw an exception (undefined)', async () =>
         expect(parse(schema, undefined)).resolves.not.toThrow());
@@ -269,7 +269,7 @@ describe('Mixed Schema API', () => {
     });
 
     describe('Array', () => {
-      const schema = array(number()).notRequired(false);
+      const schema = array(number()).optional(false);
 
       it('should not throw an exception (undefined)', async () =>
         expect(parse(schema, undefined)).resolves.not.toThrow());
@@ -285,7 +285,7 @@ describe('Mixed Schema API', () => {
     });
 
     describe('Any', () => {
-      const schema = any().notRequired(false);
+      const schema = any().optional(false);
 
       it('should not throw an exception (undefined)', async () =>
         expect(parse(schema, undefined)).resolves.not.toThrow());
