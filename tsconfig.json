@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+     "lib": [
+        "es5",
+        "es6",
+        "esnext"
+     ],
+     "target": "es5",
+     "noEmit": true,
+     "resolveJsonModule": true,
+     "allowSyntheticDefaultImports": true,
+     "forceConsistentCasingInFileNames": true,
+     "skipLibCheck": true,
+     "module": "esnext",
+     "moduleResolution": "node",
+     "outDir": "./dist",
+     "removeComments": true,
+     "sourceMap": true,
+     "esModuleInterop": true,
+     "declaration": true,
+     "baseUrl": ".",
+     "rootDir": "./src",
+     "downlevelIteration": true,
+     "strict": true,
+  },
+  "include": ["./src/**/*"],
+  "exclude": ["node_modules", "__tests__", "dist"]
+}

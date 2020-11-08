@@ -1,0 +1,77 @@
+{
+    "env": {
+        "browser": true,
+        "es2020": true,
+        "node": true,
+        "jest": true
+    },
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly"
+    },
+    "extends": [
+        "airbnb-base",
+        "plugin:@typescript-eslint/recommended",
+        "prettier/@typescript-eslint",
+        "plugin:prettier/recommended",
+        "plugin:jest/recommended",
+        "plugin:jest/style"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": 11,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "@typescript-eslint",
+        "prettier",
+        "jest",
+        "eslint-plugin-import-helpers"
+    ],
+    "settings": {
+        "import/extensions": [".js", ".jsx", ".ts", ".tsx"],
+        "import/parsers": {
+            "@typescript-eslint/parser": [".ts", ".tsx"]
+        },
+        "import/resolver": {
+            "typescript": {}
+        }
+    },
+    "rules": {
+        "prettier/prettier": "error",
+
+        "no-console": "off",
+        "lines-between-class-members": "off",
+        "class-methods-use-this": "off",
+        "no-plusplus": "off",
+        "space-before-function-paren": "off",
+        "no-unused-expressions": "off",
+        "no-use-before-define": "off",
+        "no-useless-constructor": "off",
+        "no-underscore-dangle": "off",
+        "no-param-reassign": "off",
+
+        "import/prefer-default-export": "off",
+        "import/no-dynamic-require": "off",
+        "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
+        "import/extensions": [
+            "error",
+            "ignorePackages",
+            { "ts": "never", "tsx": "never" }
+        ],
+
+        "import-helpers/order-imports": [
+            "warn",
+            {
+                "newlinesBetween": "always",
+                "groups": [
+                    "module",
+                    "/^@shared/",
+                    ["parent", "sibling", "index"]
+                ]
+            }
+        ],
+
+        "@typescript-eslint/no-explicit-any": "off"
+    }
+}
