@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 /* eslint-disable @typescript-eslint/ban-types */
 // eslint-disable-next-line no-shadow
 export enum InvalidType {
@@ -57,8 +58,28 @@ export abstract class Schema<SchemaType = any> {
     this.invalidType = invalidType;
   }
 
-  // nullable
-  // optional
+  public optional(): UnionSchema<[Schema<SchemaType>, UndefinedSchema]> {
+    return new UnionSchema([this, new UndefinedSchema()]);
+  }
+
+  public nullable(): UnionSchema<[Schema<SchemaType>, NullSchema]> {
+    return new UnionSchema([this, new NullSchema()]);
+  }
+
   // parse
   // check
+}
+
+declare class UnionSchema<UnionType extends Schema[]> extends Schema<
+  Union<UnionType>
+> {
+  public constructor(schemas: UnionType);
+}
+
+declare class UndefinedSchema extends Schema<undefined> {
+  public constructor();
+}
+
+declare class NullSchema extends Schema<null> {
+  public constructor();
 }
