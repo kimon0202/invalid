@@ -1,6 +1,10 @@
-/* eslint-disable max-classes-per-file */
+/* eslint-disable import-helpers/order-imports */
+/* eslint-disable import/first */
+/* eslint-disable import/no-cycle */
+/* eslint-disable no-shadow */
 /* eslint-disable @typescript-eslint/ban-types */
-// eslint-disable-next-line no-shadow
+import { ValidationError } from './errors/ValidationError';
+
 export enum InvalidType {
   string = 'string',
   number = 'number',
@@ -24,6 +28,10 @@ export enum InvalidType {
 
   custom = 'custom',
 }
+
+export type TestFunction = (value: unknown) => ValidationError | null;
+
+export type InvalidMessage = string | (() => string);
 
 export type Infer<T extends Schema> = T['type'];
 export type Union<T extends Schema[]> = Infer<T[number]>;
@@ -54,8 +62,11 @@ export abstract class Schema<SchemaType = any> {
   public readonly type: SchemaType = {} as SchemaType;
   public readonly invalidType: InvalidType;
 
+  protected readonly _properties: Map<string, TestFunction>;
+
   public constructor(invalidType: InvalidType) {
     this.invalidType = invalidType;
+    this._properties = new Map();
   }
 
   public optional(): UnionSchema<[Schema<SchemaType>, UndefinedSchema]> {
@@ -66,20 +77,38 @@ export abstract class Schema<SchemaType = any> {
     return new UnionSchema([this, new NullSchema()]);
   }
 
+  public get properties(): TestFunction[] {
+    return [...this._properties.values()];
+  }
+
   // parse
+  public async parse(value: unknown): Promise<SchemaType> {
+    const errors: ValidationError[] = [];
+
+    // change errors message
+    if (!this.check(value)) {
+      errors.push(new ValidationError('Incorrect type'));
+    }
+
+    this.properties.forEach(prop => {
+      const error = prop(value);
+
+      if (error) errors.push(error);
+    });
+
+    // change this to better error throwing
+
+    if (errors.length > 0) {
+      throw new Error(JSON.stringify(errors));
+    }
+
+    return value as SchemaType;
+  }
+
   // check
+  public abstract check(value: unknown): boolean;
 }
 
-declare class UnionSchema<UnionType extends Schema[]> extends Schema<
-  Union<UnionType>
-> {
-  public constructor(schemas: UnionType);
-}
-
-declare class UndefinedSchema extends Schema<undefined> {
-  public constructor();
-}
-
-declare class NullSchema extends Schema<null> {
-  public constructor();
-}
+import { NullSchema } from './schemas/Null';
+import { UndefinedSchema } from './schemas/Undefined';
+import { UnionSchema } from './schemas/Union';
