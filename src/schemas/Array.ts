@@ -9,4 +9,10 @@ export class ArraySchema<ElementSchema extends Schema> extends Schema<
     super(InvalidType.array);
     this._elementSchema = elementSchema;
   }
+
+  public check(value: unknown): boolean {
+    return (
+      Array.isArray(value) && value.every(val => this._elementSchema.check(val))
+    );
+  }
 }

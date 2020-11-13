@@ -17,4 +17,14 @@ export class ObjectSchema<ShapeType extends Shape> extends Schema<
     super(InvalidType.object);
     this._shape = shape;
   }
+
+  public check(value: unknown): boolean {
+    return (
+      typeof value === 'object' &&
+      value !== null &&
+      Object.keys(this._shape).every(key =>
+        this._shape[key].check((value as any)[key]),
+      )
+    );
+  }
 }
