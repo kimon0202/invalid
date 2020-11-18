@@ -3,7 +3,8 @@ export class ValidationError extends Error {
   private _path: string;
 
   public constructor(message: string, path = '') {
-    super(`${path}: ${message}`);
+    const finalMessage = path ? `${message} at ${path}` : message;
+    super(finalMessage);
 
     this._message = message;
     this._path = path;

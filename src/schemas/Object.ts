@@ -27,4 +27,8 @@ export class ObjectSchema<ShapeType extends Shape> extends Schema<
       )
     );
   }
+
+  public get shape(): ShapeType {
+    return this._shape;
+  }
 }

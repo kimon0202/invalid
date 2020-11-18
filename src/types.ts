@@ -6,27 +6,29 @@
 import { ValidationError } from './errors/ValidationError';
 
 export enum InvalidType {
-  string = 'string',
-  number = 'number',
-  nan = 'nan',
-  boolean = 'boolean',
-  object = 'object',
-  array = 'array',
-  date = 'date',
+  string = 'string', //
+  number = 'number', //
+  nan = 'nan', //
+  boolean = 'boolean', //
+  object = 'object', //
+  array = 'array', //
+  date = 'date', //
+  bigint = 'bigint', //
+  symbol = 'symbol', //
 
   union = 'union',
   intersection = 'intersection',
   tuple = 'tuple',
 
-  undefined = 'undefined',
-  null = 'null',
+  undefined = 'undefined', //
+  null = 'null', //
   any = 'any',
   unknown = 'unknown',
 
-  function = 'function',
-  promise = 'promise',
+  function = 'function', //
+  promise = 'promise', //
 
-  custom = 'custom',
+  custom = 'custom', //
 }
 
 export type TestFunction = (value: unknown) => ValidationError | null;

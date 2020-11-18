@@ -63,3 +63,5 @@ export const array = <ElementSchema extends Schema>(
 export const union = <UnionType extends Schema[]>(
   types: UnionType,
 ): UnionSchema<UnionType> => new UnionSchema(types);
+
+export { errors } from './functions/errors';
