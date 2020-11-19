@@ -4,6 +4,7 @@
 /* eslint-disable no-shadow */
 /* eslint-disable @typescript-eslint/ban-types */
 import { ValidationError } from './errors/ValidationError';
+import { errors } from './functions/errors';
 
 export enum InvalidType {
   string = 'string', //
@@ -85,23 +86,15 @@ export abstract class Schema<SchemaType = any> {
 
   // parse
   public async parse(value: unknown): Promise<SchemaType> {
-    const errors: ValidationError[] = [];
+    const errs = await errors(this, value);
 
-    // change errors message
-    if (!this.check(value)) {
-      errors.push(new ValidationError('Incorrect type'));
-    }
+    if (errs.length > 0) {
+      const finalMessage = errs
+        .map(err => err.message)
+        .map(message => message.trim())
+        .join('\n');
 
-    this.properties.forEach(prop => {
-      const error = prop(value);
-
-      if (error) errors.push(error);
-    });
-
-    // change this to better error throwing
-
-    if (errors.length > 0) {
-      throw new Error(JSON.stringify(errors));
+      throw new Error(finalMessage);
     }
 
     return value as SchemaType;
@@ -111,6 +104,9 @@ export abstract class Schema<SchemaType = any> {
   public abstract check(value: unknown): boolean;
 }
 
+/*
+This is necessary to avoid errors with the loading order
+*/
 import { NullSchema } from './schemas/Null';
 import { UndefinedSchema } from './schemas/Undefined';
 import { UnionSchema } from './schemas/Union';

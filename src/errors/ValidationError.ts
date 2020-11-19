@@ -1,12 +1,9 @@
-export class ValidationError extends Error {
+export class ValidationError {
   private _message: string;
   private _path: string;
 
   public constructor(message: string, path = '') {
-    const finalMessage = path ? `${message} at ${path}` : message;
-    super(finalMessage);
-
-    this._message = message;
+    this._message = path ? `${message} at ${path}` : message;
     this._path = path;
   }
 
