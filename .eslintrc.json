@@ -70,8 +70,6 @@
                     ["parent", "sibling", "index"]
                 ]
             }
-        ],
-
-        "@typescript-eslint/no-explicit-any": "off"
+        ]
     }
 }

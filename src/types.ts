@@ -1,112 +1,64 @@
-/* eslint-disable import-helpers/order-imports */
-/* eslint-disable import/first */
-/* eslint-disable import/no-cycle */
-/* eslint-disable no-shadow */
-/* eslint-disable @typescript-eslint/ban-types */
-import { ValidationError } from './errors/ValidationError';
-import { errors } from './functions/errors';
+import { IProperty } from './interfaces/IProperty';
+import { ISchema } from './interfaces/ISchema';
 
+// eslint-disable-next-line no-shadow
 export enum InvalidType {
-  string = 'string', //
-  number = 'number', //
-  nan = 'nan', //
-  boolean = 'boolean', //
-  object = 'object', //
-  array = 'array', //
-  date = 'date', //
-  bigint = 'bigint', //
-  symbol = 'symbol', //
+  string = 'string',
+  number = 'number',
+  nan = 'nan',
+  boolean = 'boolean',
+  object = 'object',
+  array = 'array',
+  date = 'date',
+  bigint = 'bigint',
+  symbol = 'symbol',
 
   union = 'union',
   intersection = 'intersection',
   tuple = 'tuple',
 
-  undefined = 'undefined', //
-  null = 'null', //
+  undefined = 'undefined',
+  null = 'null',
   any = 'any',
   unknown = 'unknown',
 
-  function = 'function', //
-  promise = 'promise', //
+  function = 'function',
+  promise = 'promise',
 
-  custom = 'custom', //
+  custom = 'custom',
 }
 
-export type TestFunction = (value: unknown) => ValidationError | null;
+export interface Schema<SchemaType> {
+  check(value: unknown): boolean;
+  parse(value: unknown): SchemaType | null; // TODO: use somthing else instead of null
 
-export type InvalidMessage = string | (() => string);
+  schema(): ISchema<SchemaType>;
+  properties(): IProperty[];
 
-export type Infer<T extends Schema> = T['type'];
-export type Union<T extends Schema[]> = Infer<T[number]>;
-export type Identity<T> = T;
-
-export type Shape = { [key: string]: Schema };
-export type InferShape<S extends Shape> = {
-  [i in keyof S]: S[i] extends Shape
-    ? {
-        [j in keyof S[i]]: S[i][j];
-      }
-    : Infer<S[i]>;
-};
-
-export type Flatten<T extends object> = Identity<{ [key in keyof T]: T[key] }>;
-
-export type OptionalKeys<T extends object> = {
-  [k in keyof T]: undefined extends T[k] ? k : never;
-}[keyof T];
-
-export type RequiredKeys<T extends object> = Exclude<keyof T, OptionalKeys<T>>;
-export type BuildObject<T extends object> = {
-  [key in OptionalKeys<T>]?: T[key];
-} &
-  { [key in RequiredKeys<T>]: T[key] };
-
-export abstract class Schema<SchemaType = any> {
-  public readonly type: SchemaType = {} as SchemaType;
-  public readonly invalidType: InvalidType;
-
-  protected readonly _properties: Map<string, TestFunction>;
-
-  public constructor(invalidType: InvalidType) {
-    this.invalidType = invalidType;
-    this._properties = new Map();
-  }
-
-  public optional(): UnionSchema<[Schema<SchemaType>, UndefinedSchema]> {
-    return new UnionSchema([this, new UndefinedSchema()]);
-  }
-
-  public nullable(): UnionSchema<[Schema<SchemaType>, NullSchema]> {
-    return new UnionSchema([this, new NullSchema()]);
-  }
-
-  public get properties(): TestFunction[] {
-    return [...this._properties.values()];
-  }
-
-  // parse
-  public async parse(value: unknown): Promise<SchemaType> {
-    const errs = await errors(this, value);
-
-    if (errs.length > 0) {
-      const finalMessage = errs
-        .map(err => err.message)
-        .map(message => message.trim())
-        .join('\n');
-
-      throw new Error(finalMessage);
-    }
-
-    return value as SchemaType;
-  }
-
-  // check
-  public abstract check(value: unknown): boolean;
+  addProperty(property: IProperty): void;
 }
 
-/*
-This is necessary to avoid errors with the loading order
-*/
-import { NullSchema } from './schemas/Null';
-import { UndefinedSchema } from './schemas/Undefined';
-import { UnionSchema } from './schemas/Union';
+// export type Infer<T extends Schema> = T['type'];
+// export type Union<T extends Schema[]> = Infer<T[number]>;
+// export type Identity<T> = T;
+
+// export type Shape = { [key: string]: Schema };
+// export type InferShape<S extends Shape> = {
+//   [i in keyof S]: S[i] extends Shape
+//     ? {
+//         [j in keyof S[i]]: S[i][j];
+//       }
+//     : Infer<S[i]>;
+// };
+
+// export type Flatten<T extends object> = Identity<{ [key in keyof T]: T[key] }>;
+
+// export type OptionalKeys<T extends object> = {
+//   [k in keyof T]: undefined extends T[k] ? k : never;
+// }[keyof T];
+
+// export type RequiredKeys<T extends object> = Exclude<keyof T, OptionalKeys<T>>;
+// export type BuildObject<T extends object> = {
+//   [key in OptionalKeys<T>]?: T[key];
+// } &
+//   { [key in RequiredKeys<T>]: T[key] };
