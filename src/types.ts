@@ -1,41 +1,32 @@
-import { IProperty } from './interfaces/IProperty';
-import { ISchema } from './interfaces/ISchema';
-
-// eslint-disable-next-line no-shadow
+/* eslint-disable no-shadow */
 export enum InvalidType {
-  string = 'string',
-  number = 'number',
-  nan = 'nan',
-  boolean = 'boolean',
-  object = 'object',
-  array = 'array',
-  date = 'date',
-  bigint = 'bigint',
-  symbol = 'symbol',
+  String = 'string',
+  Number = 'number',
+  NaN = 'nan',
+  Boolean = 'boolean',
+  Object = 'object',
+  Array = 'array',
+  Date = 'date',
+  BigInt = 'bigint',
+  Symbol = 'symbol',
 
-  union = 'union',
-  intersection = 'intersection',
-  tuple = 'tuple',
+  Union = 'union',
+  Intersection = 'intersection',
+  Tuple = 'tuple',
 
-  undefined = 'undefined',
-  null = 'null',
-  any = 'any',
-  unknown = 'unknown',
+  Undefined = 'undefined',
+  Null = 'null',
+  Any = 'any',
+  Unknown = 'unknown',
 
-  function = 'function',
-  promise = 'promise',
+  Function = 'function',
+  Promise = 'promise',
 
-  custom = 'custom',
+  Custom = 'custom',
 }
 
-export interface Schema<SchemaType> {
-  check(value: unknown): boolean;
-  parse(value: unknown): SchemaType | null; // TODO: use somthing else instead of null
-
-  schema(): ISchema<SchemaType>;
-  properties(): IProperty[];
-
-  addProperty(property: IProperty): void;
+export enum ErrorType {
+  Validation = 'ValidationError',
 }
 
 // export type Infer<T extends Schema> = T['type'];
